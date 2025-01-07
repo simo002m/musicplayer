@@ -1,6 +1,7 @@
 package Services;
 
 import Models.Song;
+import util.SqlConnection;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -19,7 +20,7 @@ public class SongDAOImpl implements SongDAO
         try
         {
             String sql = "SELECT * FROM Songs";
-            //con = call method
+            con = SqlConnection.getConnection();
 
             PreparedStatement pstmt = con.prepareStatement(sql);
             ResultSet rs = pstmt.executeQuery();
