@@ -14,6 +14,11 @@ public class Song
         return songID;
     }
 
+    public void setSongID(int songID)
+    {
+        this.songID = songID;
+    }
+
     public String getSongName()
     {
         return songName;
@@ -64,14 +69,8 @@ public class Song
         this.genre = genre;
     }
 
-    public Song(int songID, String songName, String artistName, int duration, String filePath, String genre)
+    public Song()
     {
-        this.songID = songID;
-        this.songName = songName;
-        this.artistName = artistName;
-        this.duration = duration;
-        this.filePath = filePath;
-        this.genre = genre;
     }
 
     public Song(String songName, String artistName, int duration, String filePath, String genre)
