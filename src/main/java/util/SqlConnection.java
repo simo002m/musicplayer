@@ -4,10 +4,9 @@ import java.sql.*;
 
 public class SqlConnection {
 
-    private static final String URL = "jdbc:sqlserver://localhost;portNumber=1433;databaseName=musicplayer";
-    //private static final String URL = "jdbc:sqlserver://162.19.246.106:1433;databaseName=musicplayer;";
-    private static final String USERNAME = "sa"; // replace with your username
-    private static final String PASSWORD = "1234"; // replace with your password
+    private static final String URL = "jdbc:sqlserver://162.19.246.106:1433;databaseName=YoussefDB;";
+    private static final String USERNAME = "youssefgruppen";
+    private static final String PASSWORD = "youssef123!";
 
     public static Connection getConnection() throws Exception
     {
