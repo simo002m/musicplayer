@@ -74,8 +74,8 @@ public class SongDAOImpl implements SongDAO
         try
         {
             String sql = "SELECT * FROM Songs " +
-                    "INNER JOIN SongsPlaylists ON Song.songID = SongPlaylist.songID " +
-                    "INNER JOIN Playlists ON Playlists.playlistID = SongPlaylists.playlistID " +
+                    "INNER JOIN SongsPlaylists ON Song.songID = SongsPlaylists.songID " +
+                    "INNER JOIN Playlists ON Playlists.playlistID = SongsPlaylists.playlistID " +
                     "WHERE Playlists.playlistID = ?";
             con = SqlConnection.getConnection();
 
@@ -167,7 +167,7 @@ public class SongDAOImpl implements SongDAO
         Connection con = null;
         try
         {
-            String sql = "delete from Songs where songID = ?";
+            String sql = "DELETE FROM Songs WHERE songID = ?";
             con = SqlConnection.getConnection();
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, song.getSongID());
