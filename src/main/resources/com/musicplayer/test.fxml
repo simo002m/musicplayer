@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="600.0" prefWidth="833.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.musicplayer.HelloController">
+   <!-- Top bar with search field -->
+   <HBox layoutX="20" layoutY="20" prefHeight="40.0" prefWidth="760.0" spacing="10">
+      <Button onAction="#searchClick" text="Søg:" />
+      <TextField id="SearchID" fx:id="searchField" promptText="Søg efter sang eller kunstner" />
+   </HBox>
+
+   <!-- Playlist table -->
+   <TableView fx:id="playlistTable" layoutX="201.0" layoutY="110.0" prefHeight="300.0" prefWidth="632.0">
+      <columns>
+         <TableColumn prefWidth="303.0000305175781">
+            <columns>
+               <TableColumn id="SangID" prefWidth="300.0" style="-fx-background-color: #D2B48C;" text="Sang:" />
+            </columns>
+            <graphic>
+               <Button mnemonicParsing="false" prefHeight="38.0" prefWidth="335.0" style="-fx-background-color: #D2B48C;" text="Add song" fx:id="addSong"/>
+            </graphic></TableColumn>
+         <TableColumn id="KunstnerID" prefWidth="190.60000610351562" style="-fx-background-color: #D2B48C;" text="Kunstner:" />
+         <TableColumn id="VarighedID" prefWidth="140.79997558593755" style="-fx-background-color: #D2B48C;" text="Varighed:" />
+      </columns>
+   </TableView>
+
+   <style>
+      #addSong:hover {
+         -fx-background-color: red;
+      }
+   </style>
+
+   <!-- Now Playing section -->
+   <VBox layoutX="20" layoutY="400" spacing="10" />
+
+   <!-- Control buttons -->
+   <HBox layoutX="20" layoutY="500" spacing="20" />
+
+   <!-- Volume slider -->
+   <VBox layoutX="680" layoutY="500" spacing="10">
+      <Label text="Lydstyrke" />
+   </VBox>
+   <TableView layoutX="39.0" layoutY="110.0" prefHeight="300.0" prefWidth="150.0">
+     <columns>
+       <TableColumn prefWidth="149.60000076293946" style="-fx-background-color: #D2B48C;" text="Playlist" />
+     </columns>
+   </TableView>
+   <Slider id="SpillelinjeID" fx:id="PlaySlider" layoutX="205.0" layoutY="525.0" prefHeight="14.0" prefWidth="390.0" />
+   <Slider id="LydstyrkeID" fx:id="volumeSlider" layoutX="662.0" layoutY="518.0" prefHeight="14.0" prefWidth="111.0" />
+   <Button id="NæsteID" fx:id="nextButton" layoutX="468.0" layoutY="487.0" onAction="#handleNextButtonAction" style="-fx-background-color: #C0C0C0;" text="⏭ Næste" />
+   <Button id="PauseID" fx:id="playPauseButton" layoutX="354.0" layoutY="487.0" onAction="#handlePlayPauseButtonAction" style="-fx-background-color: #C0C0C0;" text="⏯ Afspil/Pause" />
+   <Button id="ForrigeID" fx:id="previousButton" layoutX="262.0" layoutY="487.0" onAction="#handlePreviousButtonAction" style="-fx-background-color: #C0C0C0;" text="⏮ Forrige" />
+   <Label id="afspillersangID" fx:id="currentSongLabel" layoutX="20.0" layoutY="523.0" style="-fx-background-color: #C0C0C0;" text="Sang: [Ingen sang valgt]" />
+   <Label id="SpillernuID" layoutX="20.0" layoutY="491.0" style="-fx-background-color: #C0C0C0;" text="Spiller nu:" />
+</AnchorPane>

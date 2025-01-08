@@ -3,23 +3,65 @@ package com.musicplayer;
 import Services.SongDAO;
 import Services.SongDAOImpl;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
 
 public class HelloController {
-    @FXML
-    private Label welcomeText;
+
 
     @FXML
-    protected void onHelloButtonClick() {
-        welcomeText.setText("Welcome to JavaFX Application!");
+    private TextField searchField;
+
+    @FXML
+    private TableView<?> playlistTable;
+
+
+    @FXML
+    private Label currentSongLabel;
+
+    @FXML
+    private Slider volumeSlider;
+
+    @FXML
+    private Button playButton;
+
+    // Initialiser controlleren
+    @FXML
+    public void initialize() {
+        // initialisere nogle elementer
+        currentSongLabel.setText("Sang: [Ingen sang valgt]");
     }
 
-    public void initialize() {
-        SongDAO songdao = new SongDAOImpl();
+    // Tilføj event handlers
+    @FXML
+    private void handleNextButtonAction() {
+        System.out.println("Næste sang blev trykket");
 
-        try {
-            songdao.getAllSongs();
-        } catch (Exception e) {
-        }
+    }
+
+    @FXML
+    private void handlePlayPauseButtonAction() {
+        System.out.println("Afspil/Pause blev trykket");
+
+    }
+
+    @FXML
+    private void handlePreviousButtonAction() {
+        System.out.println("Forrige sang blev trykket");
+
+    }
+    @FXML
+    private void handleStopButtonAction() {
+        System.out.println("Stop blev trykket");
+
+    }
+    @FXML
+    private void handleVolumeButtonAction() {
+        System.out.println("Volume blev trykket");
+    }
+   @FXML
+    private void searchClick() {
+    System.out.println(searchField.getText());
+    searchField.setText("Simon tag et bad");
+
     }
 }
