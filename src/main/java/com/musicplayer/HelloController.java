@@ -43,6 +43,40 @@ public class HelloController {
         }
     }
 
+    // Tilføj event handlers
+    @FXML
+    private void handleNextButtonAction() {
+        System.out.println("Næste sang blev trykket");
+
+    }
+
+    @FXML
+    private void handlePlayPauseButtonAction() {
+        System.out.println("Afspil/Pause blev trykket");
+
+    }
+
+    @FXML
+    private void handlePreviousButtonAction() {
+        System.out.println("Forrige sang blev trykket");
+
+    }
+    @FXML
+    private void handleStopButtonAction() {
+        System.out.println("Stop blev trykket");
+
+    }
+    @FXML
+    private void handleVolumeButtonAction() {
+        System.out.println("Volume blev trykket");
+    }
+    @FXML
+    private void searchClick() {
+        System.out.println(searchField.getText());
+        searchField.setText("Simon tag et bad");
+
+    }
+
     // Initialize method to load all songs (you already have this method)
     public void initialize() {
         SongDAO songdao = new SongDAOImpl();
