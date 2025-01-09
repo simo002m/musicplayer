@@ -30,15 +30,19 @@ public class HelloController {
     private Button playButton;
 
     // Initialize method to load all songs (you already have this method)
-    public void initialize() {
+    public void initialize()
+    {
         // initialisere nogle elementer
         currentSongLabel.setText("Sang: [Ingen sang valgt]");
 
         SongDAO songdao = new SongDAOImpl();
 
-        try {
+        try
+        {
             songdao.getAllSongs();
-        } catch (Exception e) {
+        }
+        catch (Exception e)
+        {
             // Handle any exceptions here, if needed
             e.printStackTrace();
         }
@@ -46,39 +50,46 @@ public class HelloController {
 
     // Tilføj event handlers
     @FXML
-    private void handleNextButtonAction() {
+    private void handleNextButtonAction()
+    {
         System.out.println("Næste sang blev trykket");
     }
 
     @FXML
-    private void handlePlayPauseButtonAction() {
+    private void handlePlayPauseButtonAction()
+    {
         System.out.println("Afspil/Pause blev trykket");
     }
 
     @FXML
-    private void handlePreviousButtonAction() {
+    private void handlePreviousButtonAction()
+    {
         System.out.println("Forrige sang blev trykket");
     }
 
     @FXML
-    private void handleStopButtonAction() {
+    private void handleStopButtonAction()
+    {
         System.out.println("Stop blev trykket");
     }
 
     @FXML
-    private void handleVolumeButtonAction() {
+    private void handleVolumeButtonAction()
+    {
         System.out.println("Volume blev trykket");
     }
 
     @FXML
-    private void searchClick() {
+    private void searchClick()
+    {
         System.out.println(searchField.getText());
         searchField.setText("Simon tag et bad");
     }
 
     // This method will be triggered when the user clicks the "Choose File" button
     @FXML
-    protected void chooseFile() {
+    protected void chooseFile()
+    {
         // Create a new FileChooser instance
         FileChooser fileChooser = new FileChooser();
 
@@ -94,13 +105,15 @@ public class HelloController {
         File selectedFile = fileChooser.showOpenDialog(new Stage());
 
         // If a file is selected, do something with the file (e.g., display the file name)
-        if (selectedFile != null) {
+        if (selectedFile != null)
+        {
             // Here you can use the file for further processing, such as playing it
             welcomeText.setText("Selected file: " + selectedFile.getName());
 
             // Example: you can add functionality to play the music using MediaPlayer
             // For instance, create a MediaPlayer here to play the song.
-        } else {
+        } else
+        {
             welcomeText.setText("No file selected");
         }
     }
