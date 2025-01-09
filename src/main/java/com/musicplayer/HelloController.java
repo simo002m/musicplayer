@@ -3,7 +3,7 @@ package com.musicplayer;
 import Services.SongDAO;
 import Services.SongDAOImpl;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -13,6 +13,68 @@ public class HelloController {
 
     @FXML
     private Label welcomeText;
+
+    @FXML
+    private TextField searchField;
+
+    @FXML
+    private TableView<?> playlistTable;
+
+    @FXML
+    private Label currentSongLabel;
+
+    @FXML
+    private Slider volumeSlider;
+
+    @FXML
+    private Button playButton;
+
+    // Initialize method to load all songs (you already have this method)
+    public void initialize() {
+        // initialisere nogle elementer
+        currentSongLabel.setText("Sang: [Ingen sang valgt]");
+
+        SongDAO songdao = new SongDAOImpl();
+
+        try {
+            songdao.getAllSongs();
+        } catch (Exception e) {
+            // Handle any exceptions here, if needed
+            e.printStackTrace();
+        }
+    }
+
+    // Tilføj event handlers
+    @FXML
+    private void handleNextButtonAction() {
+        System.out.println("Næste sang blev trykket");
+    }
+
+    @FXML
+    private void handlePlayPauseButtonAction() {
+        System.out.println("Afspil/Pause blev trykket");
+    }
+
+    @FXML
+    private void handlePreviousButtonAction() {
+        System.out.println("Forrige sang blev trykket");
+    }
+
+    @FXML
+    private void handleStopButtonAction() {
+        System.out.println("Stop blev trykket");
+    }
+
+    @FXML
+    private void handleVolumeButtonAction() {
+        System.out.println("Volume blev trykket");
+    }
+
+    @FXML
+    private void searchClick() {
+        System.out.println(searchField.getText());
+        searchField.setText("Simon tag et bad");
+    }
 
     // This method will be triggered when the user clicks the "Choose File" button
     @FXML
@@ -43,49 +105,4 @@ public class HelloController {
         }
     }
 
-    // Tilføj event handlers
-    @FXML
-    private void handleNextButtonAction() {
-        System.out.println("Næste sang blev trykket");
-
-    }
-
-    @FXML
-    private void handlePlayPauseButtonAction() {
-        System.out.println("Afspil/Pause blev trykket");
-
-    }
-
-    @FXML
-    private void handlePreviousButtonAction() {
-        System.out.println("Forrige sang blev trykket");
-
-    }
-    @FXML
-    private void handleStopButtonAction() {
-        System.out.println("Stop blev trykket");
-
-    }
-    @FXML
-    private void handleVolumeButtonAction() {
-        System.out.println("Volume blev trykket");
-    }
-    @FXML
-    private void searchClick() {
-        System.out.println(searchField.getText());
-        searchField.setText("Simon tag et bad");
-
-    }
-
-    // Initialize method to load all songs (you already have this method)
-    public void initialize() {
-        SongDAO songdao = new SongDAOImpl();
-
-        try {
-            songdao.getAllSongs();
-        } catch (Exception e) {
-            // Handle any exceptions here, if needed
-            e.printStackTrace();
-        }
-    }
 }
