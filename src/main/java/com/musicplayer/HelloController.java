@@ -1,24 +1,33 @@
 package com.musicplayer;
 
+import Models.*;
 import Services.SongDAO;
 import Services.SongDAOImpl;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.layout.ColumnConstraints;
+import javafx.scene.layout.GridPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
-public class HelloController {
+public class HelloController
+{
+    private ObservableList<Song> songsOList = FXCollections.observableArrayList();
 
     @FXML
-    private Label welcomeText;
-
+    ListView songsListView = new ListView();
     @FXML
     private TextField searchField;
 
     @FXML
     private TableView<?> playlistTable;
+
 
     @FXML
     private Label currentSongLabel;
@@ -39,7 +48,45 @@ public class HelloController {
 
         try
         {
-            songdao.getAllSongs();
+            songsOList.addAll(songdao.getAllSongs());
+            songsListView.setItems(songsOList);
+            songsListView.getItems().add(songsOList);
+
+
+            songsListView.setCellFactory(lv -> new ListCell<Song>()
+            {
+                @Override
+                protected void updateItem(Song song, boolean empty)
+                {
+                    super.updateItem(song, empty);
+                    if (empty || song == null)
+                    {
+                        setText(null);
+                        setGraphic(null);
+                    }
+                    else
+                    {
+                        GridPane grid = new GridPane();
+
+                        Label nameLabel = new Label("Song: " + song.getSongName());
+                        Label artistLabel = new Label("Artist: " + song.getArtistName());
+                        Label durationLabel = new Label("Duration: " + song.getDuration() + " sec");
+
+                        grid.add(nameLabel, 0, 0);
+                        grid.add(artistLabel, 1, 0);
+                        grid.add(durationLabel, 2, 0);
+
+
+
+                        grid.getColumnConstraints().add(new ColumnConstraints(140));
+                        grid.getColumnConstraints().add(new ColumnConstraints(250));
+                        grid.getColumnConstraints().add(new ColumnConstraints(200));
+
+
+                        setGraphic(grid);
+                    }
+                }
+            });
         }
         catch (Exception e)
         {
@@ -52,27 +99,30 @@ public class HelloController {
     @FXML
     private void handleNextButtonAction()
     {
+
         System.out.println("Næste sang blev trykket");
+
     }
 
     @FXML
     private void handlePlayPauseButtonAction()
     {
         System.out.println("Afspil/Pause blev trykket");
+
     }
 
     @FXML
     private void handlePreviousButtonAction()
     {
         System.out.println("Forrige sang blev trykket");
-    }
 
+    }
     @FXML
     private void handleStopButtonAction()
     {
         System.out.println("Stop blev trykket");
-    }
 
+    }
     @FXML
     private void handleVolumeButtonAction()
     {
@@ -108,13 +158,13 @@ public class HelloController {
         if (selectedFile != null)
         {
             // Here you can use the file for further processing, such as playing it
-            welcomeText.setText("Selected file: " + selectedFile.getName());
+            //welcomeText.setText("Selected file: " + selectedFile.getName());
 
             // Example: you can add functionality to play the music using MediaPlayer
             // For instance, create a MediaPlayer here to play the song.
         } else
         {
-            welcomeText.setText("No file selected");
+            //welcomeText.setText("No file selected");
         }
     }
 

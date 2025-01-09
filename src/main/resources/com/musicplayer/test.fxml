@@ -5,31 +5,10 @@
 
 <AnchorPane prefHeight="600.0" prefWidth="833.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.musicplayer.HelloController">
    <!-- Top bar with search field -->
-   <HBox layoutX="20" layoutY="20" prefHeight="40.0" prefWidth="760.0" spacing="10">
+   <HBox layoutX="20.0" layoutY="29.0" prefHeight="40.0" prefWidth="760.0" spacing="10">
       <Button onAction="#searchClick" text="Søg:" />
       <TextField id="SearchID" fx:id="searchField" promptText="Søg efter sang eller kunstner" />
    </HBox>
-
-   <!-- Playlist table -->
-   <TableView fx:id="playlistTable" layoutX="201.0" layoutY="110.0" prefHeight="300.0" prefWidth="632.0">
-      <columns>
-         <TableColumn prefWidth="303.0000305175781">
-            <columns>
-               <TableColumn id="SangID" prefWidth="300.0" style="-fx-background-color: #D2B48C;" text="Sang:" />
-            </columns>
-            <graphic>
-               <Button mnemonicParsing="false" prefHeight="38.0" prefWidth="335.0" style="-fx-background-color: #D2B48C;" text="Add song" fx:id="addSong"/>
-            </graphic></TableColumn>
-         <TableColumn id="KunstnerID" prefWidth="190.60000610351562" style="-fx-background-color: #D2B48C;" text="Kunstner:" />
-         <TableColumn id="VarighedID" prefWidth="140.79997558593755" style="-fx-background-color: #D2B48C;" text="Varighed:" />
-      </columns>
-   </TableView>
-
-   <style>
-      #addSong:hover {
-         -fx-background-color: red;
-      }
-   </style>
 
    <!-- Now Playing section -->
    <VBox layoutX="20" layoutY="400" spacing="10" />
@@ -43,7 +22,7 @@
    </VBox>
    <TableView layoutX="39.0" layoutY="110.0" prefHeight="300.0" prefWidth="150.0">
      <columns>
-       <TableColumn prefWidth="149.60000076293946" style="-fx-background-color: #D2B48C;" text="Playlist" />
+       <TableColumn prefWidth="149.59998931884766" style="-fx-background-color: #D2B48C;" text="Playlist" />
      </columns>
    </TableView>
    <Slider id="SpillelinjeID" fx:id="PlaySlider" layoutX="205.0" layoutY="525.0" prefHeight="14.0" prefWidth="390.0" />
@@ -53,4 +32,40 @@
    <Button id="ForrigeID" fx:id="previousButton" layoutX="262.0" layoutY="487.0" onAction="#handlePreviousButtonAction" style="-fx-background-color: #C0C0C0;" text="⏮ Forrige" />
    <Label id="afspillersangID" fx:id="currentSongLabel" layoutX="20.0" layoutY="523.0" style="-fx-background-color: #C0C0C0;" text="Sang: [Ingen sang valgt]" />
    <Label id="SpillernuID" layoutX="20.0" layoutY="491.0" style="-fx-background-color: #C0C0C0;" text="Spiller nu:" />
+ <AnchorPane layoutX="240.0" layoutY="131.0" minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+      <children>
+         <SplitPane layoutX="-54.0" layoutY="-21.0" orientation="VERTICAL" prefHeight="300.0" prefWidth="624.0">
+           <items>
+             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                  <children>
+                  
+                                 <!-- Playlist table -->
+                  
+                                 <TableView fx:id="playlistTable" layoutX="-4.0" layoutY="-1.0" prefHeight="72.0" prefWidth="632.0">
+                        <columns>
+                           <TableColumn prefWidth="303.0000305175781">
+                              <columns>
+                                 <TableColumn id="SangID" prefWidth="300.0" style="-fx-background-color: #D2B48C;" text="Sang:" />
+                              </columns>
+                              <graphic>
+                                 <Button fx:id="addSong" mnemonicParsing="false" prefHeight="38.0" prefWidth="310.0" style="-fx-background-color: #D2B48C;" text="Add song" />
+                              </graphic>
+                           </TableColumn>
+                           <TableColumn id="KunstnerID" prefWidth="190.60000610351562" style="-fx-background-color: #D2B48C;" text="Kunstner:" />
+                           <TableColumn id="VarighedID" prefWidth="140.79997558593755" style="-fx-background-color: #D2B48C;" text="Varighed:" />
+                        </columns>
+                     </TableView>
+                     <ListView fx:id="songsListView" layoutY="71.0" prefWidth="632" />
+                  </children>
+               </AnchorPane>
+           </items>
+         </SplitPane>
+      </children>
+   </AnchorPane>
+
+   <style>
+      #addSong:hover {
+         -fx-background-color: red;
+      }
+   </style>
 </AnchorPane>
