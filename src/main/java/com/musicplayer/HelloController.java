@@ -90,7 +90,7 @@ public class HelloController {
 
     // This method will be triggered when the user clicks the "Choose File" button
     @FXML
-    protected void chooseFile()
+    private void chooseFile()
     {
         // Create a new FileChooser instance
         FileChooser fileChooser = new FileChooser();
@@ -118,6 +118,16 @@ public class HelloController {
         {
             welcomeText.setText("No file selected");
         }
+    }
+
+    private void createSong() {
+        /* TODO:
+        * åbn nyt vindue
+        * indtast sangens navn, kunstner, genre
+        * vælg fil via chooseFile()
+        * */
+
+
     }
 
 }

@@ -110,7 +110,7 @@ public class SongDAOImpl implements SongDAO
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, song.getSongName());
             ps.setString(2, song.getArtistName());
-            ps.setInt(3, song.getDuration());
+            ps.setString(3, song.getDuration());
             ps.setString(4, song.getFilePath());
             ps.setString(5, song.getGenre());
             int affectedRows = ps.executeUpdate();
@@ -141,7 +141,7 @@ public class SongDAOImpl implements SongDAO
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, song.getSongName());
             ps.setString(2, song.getArtistName());
-            ps.setInt(3, song.getDuration());
+            ps.setString(3, song.getDuration());
             ps.setString(4, song.getFilePath());
             ps.setString(5, song.getGenre());
             ps.setInt(6, song.getSongID());
