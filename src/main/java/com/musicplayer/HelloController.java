@@ -9,6 +9,7 @@ import javafx.stage.Stage;
 
 import java.io.File;
 
+
 public class HelloController {
 
     @FXML
@@ -46,6 +47,7 @@ public class HelloController {
             // Handle any exceptions here, if needed
             e.printStackTrace();
         }
+
     }
 
     // Tilføj event handlers

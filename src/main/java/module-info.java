@@ -11,6 +11,7 @@ module com.musicplayer {
     requires eu.hansolo.tilesfx;
     requires com.almasb.fxgl.all;
     requires java.sql;
+    requires java.desktop;
 
     opens com.musicplayer to javafx.fxml;
     exports com.musicplayer;

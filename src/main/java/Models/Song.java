@@ -1,13 +1,33 @@
 package Models;
 
+
+import javax.sound.sampled.AudioFormat;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.UnsupportedAudioFileException;
+import java.io.File;
+import java.io.IOException;
+
 public class Song
 {
     private int songID;
     private String songName;
     private String artistName;
-    private int duration;
+    private String duration;
     private String filePath;
     private String genre;
+
+    public Song()
+    {
+    }
+
+    public Song(String songName, String artistName, int duration, String filePath, String genre)
+    {
+        this.songName = songName;
+        this.artistName = artistName;
+        this.filePath = filePath;
+        this.genre = genre;
+    }
 
     public int getSongID()
     {
@@ -39,14 +59,26 @@ public class Song
         this.artistName = artistName;
     }
 
-    public int getDuration()
+    public String getDuration()
     {
         return duration;
     }
 
-    public void setDuration(int duration)
-    {
-        this.duration = duration;
+    public void setDuration(int duration) throws UnsupportedAudioFileException, IOException {
+        File file = new File(filePath);
+
+        AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(file);
+        AudioFormat format = audioInputStream.getFormat();
+        long frames = audioInputStream.getFrameLength();
+        double durationInSeconds = (frames + 0.0) / format.getFrameRate();
+
+        double hours = durationInSeconds / 3600;
+        double minutes = (durationInSeconds % 3600) / 60;
+        double seconds = durationInSeconds % 60;
+
+        String timeString = String.format("%02d:%02d:%02d", (int) hours, (int) minutes, (int) seconds);
+
+        this.duration = timeString;
     }
 
     public String getFilePath()
@@ -69,16 +101,4 @@ public class Song
         this.genre = genre;
     }
 
-    public Song()
-    {
-    }
-
-    public Song(String songName, String artistName, int duration, String filePath, String genre)
-    {
-        this.songName = songName;
-        this.artistName = artistName;
-        this.duration = duration;
-        this.filePath = filePath;
-        this.genre = genre;
-    }
 }
