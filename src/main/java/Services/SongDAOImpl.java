@@ -192,7 +192,7 @@ public class SongDAOImpl implements SongDAO
         song.setSongID(rs.getInt("songID"));
         song.setSongName(rs.getString("songName"));
         song.setArtistName(rs.getString("artistName"));
-        song.setDuration(rs.getInt("durationInSeconds"));
+        song.setDuration(rs.getInt("duration"));
         song.setFilePath(rs.getString("filePath"));
         song.setGenre(rs.getString("genre"));
         return song;

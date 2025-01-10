@@ -3,25 +3,37 @@ package com.musicplayer;
 import Models.*;
 import Services.SongDAO;
 import Services.SongDAOImpl;
+import javafx.application.Platform;
+import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.layout.ColumnConstraints;
-import javafx.scene.layout.GridPane;
+import javafx.scene.layout.*;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.util.Duration;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
 
 public class HelloController
 {
     private ObservableList<Song> songsOList = FXCollections.observableArrayList();
 
+    private MediaPlayer mediaPlayer;
+
+    @FXML
+    private Slider timeSlider;
+    private Duration duration;
+
     @FXML
     ListView songsListView = new ListView();
+
     @FXML
     private TextField searchField;
 
@@ -35,8 +47,7 @@ public class HelloController
     @FXML
     private Slider volumeSlider;
 
-    @FXML
-    private Button playButton;
+
 
     // Initialize method to load all songs (you already have this method)
     public void initialize()
@@ -50,7 +61,6 @@ public class HelloController
         {
             songsOList.addAll(songdao.getAllSongs());
             songsListView.setItems(songsOList);
-            songsListView.getItems().add(songsOList);
 
 
             songsListView.setCellFactory(lv -> new ListCell<Song>()
@@ -68,16 +78,25 @@ public class HelloController
                     {
                         GridPane grid = new GridPane();
 
-                        Label nameLabel = new Label("Song: " + song.getSongName());
-                        Label artistLabel = new Label("Artist: " + song.getArtistName());
-                        Label durationLabel = new Label("Duration: " + song.getDuration() + " sec");
+                        Button playSongButton = new Button("Play");
+                        playSongButton.setOnAction(new EventHandler<ActionEvent>() {
+                            @Override
+                            public void handle(ActionEvent actionEvent) {
+                                playSongFromListClick(song.getSongID());
+                            }
+                        });
+                        Label songNameLabel = new Label("Song: " + song.getSongName());
+                        Label artistNameLabel = new Label("Artist: " + song.getArtistName());
+                        Label songDurationLabel = new Label("Duration: " + song.getDuration());
 
-                        grid.add(nameLabel, 0, 0);
-                        grid.add(artistLabel, 1, 0);
-                        grid.add(durationLabel, 2, 0);
+                        grid.add(playSongButton, 0, 0);
+                        grid.add(songNameLabel, 1, 0);
+                        grid.add(artistNameLabel, 2, 0);
+                        grid.add(songDurationLabel, 3, 0);
 
 
 
+                        grid.getColumnConstraints().add(new ColumnConstraints(40));
                         grid.getColumnConstraints().add(new ColumnConstraints(140));
                         grid.getColumnConstraints().add(new ColumnConstraints(250));
                         grid.getColumnConstraints().add(new ColumnConstraints(200));
@@ -105,11 +124,116 @@ public class HelloController
     }
 
     @FXML
+    private void playSongFromListClick(int songID)
+    {
+        try
+        {
+            Song foundSong = null;
+            //Searches for the chosen song to be played
+            for (Song song : songsOList)
+            {
+                if (song.getSongID() == songID)
+                {
+                    foundSong = song;
+                    break;
+                }
+            }
+
+            // if the song was found it will create the media to start playing the song
+            if(foundSong != null)
+            {
+                if (mediaPlayer != null)
+                {
+                    mediaPlayer.stop();
+                }
+
+                currentSongLabel.setText("Sang: " + foundSong.getSongName());
+                Media media = new Media(getClass().getResource("/media/" + foundSong.getFilePath()).toURI().toString());
+                mediaPlayer = new MediaPlayer(media);
+                mediaPlayer.currentTimeProperty().addListener(new InvalidationListener()
+                {
+                    @Override
+                    public void invalidated(Observable ov)
+                    {
+                        updateValues();
+                    }
+                });
+
+                //adds listener on mediaplayer to update values
+                mediaPlayer.setOnReady(new Runnable()
+                {
+                    @Override
+                    public void run() {
+                        duration = mediaPlayer.getMedia().getDuration();
+                        updateValues();
+                    }
+                });
+
+                HBox.setHgrow(timeSlider, Priority.ALWAYS);
+                timeSlider.setMinWidth(50);
+                timeSlider.setMaxWidth(Double.MAX_VALUE);
+                duration = media.getDuration();
+
+                //adds listener on time slider
+                timeSlider.valueProperty().addListener(new InvalidationListener()
+                {
+                    @Override
+                    public void invalidated(Observable ov)
+                    {
+                        if (timeSlider.isValueChanging())
+                        {
+                            mediaPlayer.seek(duration.multiply(timeSlider.getValue() / 100.0));
+                        }
+                    }
+                });
+
+                volumeSlider = new Slider();
+                volumeSlider.setPrefWidth(70);
+                volumeSlider.setMaxWidth(Region.USE_PREF_SIZE);
+                volumeSlider.setMinWidth(30);
+
+                //adds listener on volume slider
+                volumeSlider.valueProperty().addListener(new InvalidationListener()
+                {
+                    @Override
+                    public void invalidated(Observable ov)
+                    {
+                        if (volumeSlider.isValueChanging())
+                        {
+                            mediaPlayer.setVolume(volumeSlider.getValue() / 100.0);
+                        }
+                    }
+                });
+
+                mediaPlayer.play();
+            }
+        }
+        catch (Exception e)
+        {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * pauses and starts the currently playing song
+     */
+    @FXML
     private void handlePlayPauseButtonAction()
     {
-        System.out.println("Afspil/Pause blev trykket");
-
+        if (mediaPlayer != null)
+        {
+            if (mediaPlayer.getStatus() == MediaPlayer.Status.PLAYING)
+            {
+                mediaPlayer.pause();
+            }
+            else
+            {
+                mediaPlayer.play();
+            }
+        }
     }
+
+
 
     @FXML
     private void handlePreviousButtonAction()
@@ -124,9 +248,10 @@ public class HelloController
 
     }
     @FXML
-    private void handleVolumeButtonAction()
+    private void handleVolumeSlider()
     {
         System.out.println("Volume blev trykket");
+
     }
 
     @FXML
@@ -134,6 +259,36 @@ public class HelloController
     {
         System.out.println(searchField.getText());
         searchField.setText("Simon tag et bad");
+    }
+
+    /**
+     * Updates values for media player
+     */
+    protected void updateValues()
+    {
+        if (mediaPlayer != null)
+        {
+            Platform.runLater(new Runnable()
+            {
+                @Override
+                public void run()
+                {
+                    Duration currentTime = mediaPlayer.getCurrentTime();
+                    timeSlider.setDisable(duration.isUnknown());
+
+                    if (!timeSlider.isDisable()
+                    && duration.greaterThan(Duration.ZERO)
+                    && !timeSlider.isValueChanging())
+                    {
+                        timeSlider.setValue(currentTime.divide(duration).toMillis() * 100.0);
+                    }
+                    if (!volumeSlider.isValueChanging())
+                    {
+                        volumeSlider.setValue((int)Math.round(mediaPlayer.getVolume() * 100));
+                    }
+                }
+            });
+        }
     }
 
     // This method will be triggered when the user clicks the "Choose File" button
