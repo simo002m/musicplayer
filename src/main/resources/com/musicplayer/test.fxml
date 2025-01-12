@@ -3,7 +3,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="600.0" prefWidth="833.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.musicplayer.HelloController">
+<AnchorPane prefHeight="600.0" prefWidth="833.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.musicplayer.HelloController">
    <!-- Top bar with search field -->
    <HBox layoutX="20" layoutY="20" prefHeight="40.0" prefWidth="760.0" spacing="10">
       <Button onAction="#searchClick" text="Søg:" />
@@ -18,18 +18,12 @@
                <TableColumn id="SangID" prefWidth="300.0" style="-fx-background-color: #D2B48C;" text="Sang:" />
             </columns>
             <graphic>
-               <Button mnemonicParsing="false" prefHeight="38.0" prefWidth="335.0" style="-fx-background-color: #D2B48C;" text="Add song" fx:id="addSong"/>
+               <Button mnemonicParsing="false" onAction="#createSong" prefHeight="38.0" prefWidth="335.0" style="-fx-background-color: #D2B48C;" text="Add song" />
             </graphic></TableColumn>
          <TableColumn id="KunstnerID" prefWidth="190.60000610351562" style="-fx-background-color: #D2B48C;" text="Kunstner:" />
          <TableColumn id="VarighedID" prefWidth="140.79997558593755" style="-fx-background-color: #D2B48C;" text="Varighed:" />
       </columns>
    </TableView>
-
-   <style>
-      #addSong:hover {
-         -fx-background-color: red;
-      }
-   </style>
 
    <!-- Now Playing section -->
    <VBox layoutX="20" layoutY="400" spacing="10" />
@@ -53,4 +47,10 @@
    <Button id="ForrigeID" fx:id="previousButton" layoutX="262.0" layoutY="487.0" onAction="#handlePreviousButtonAction" style="-fx-background-color: #C0C0C0;" text="⏮ Forrige" />
    <Label id="afspillersangID" fx:id="currentSongLabel" layoutX="20.0" layoutY="523.0" style="-fx-background-color: #C0C0C0;" text="Sang: [Ingen sang valgt]" />
    <Label id="SpillernuID" layoutX="20.0" layoutY="491.0" style="-fx-background-color: #C0C0C0;" text="Spiller nu:" />
+
+   <style>
+      #addSong:hover {
+         -fx-background-color: red;
+      }
+   </style>
 </AnchorPane>

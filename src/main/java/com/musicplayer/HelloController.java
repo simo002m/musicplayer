@@ -3,11 +3,15 @@ package com.musicplayer;
 import Services.SongDAO;
 import Services.SongDAOImpl;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.File;
+import java.io.IOException;
 
 
 public class HelloController {
@@ -50,7 +54,7 @@ public class HelloController {
 
     }
 
-    // Tilføj event handlers
+    // Add event handlers
     @FXML
     private void handleNextButtonAction()
     {
@@ -88,46 +92,18 @@ public class HelloController {
         searchField.setText("Simon tag et bad");
     }
 
-    // This method will be triggered when the user clicks the "Choose File" button
-    @FXML
-    private void chooseFile()
-    {
-        // Create a new FileChooser instance
-        FileChooser fileChooser = new FileChooser();
-
-        // Set up the file filters for MP3 and WAV files
-        FileChooser.ExtensionFilter mp3Filter = new FileChooser.ExtensionFilter("MP3 Files", "*.mp3");
-        FileChooser.ExtensionFilter wavFilter = new FileChooser.ExtensionFilter("WAV Files", "*.wav");
-
-        // Add the filters to the file chooser
-        fileChooser.getExtensionFilters().add(mp3Filter);
-        fileChooser.getExtensionFilters().add(wavFilter);
-
-        // Open the file chooser and get the selected file
-        File selectedFile = fileChooser.showOpenDialog(new Stage());
-
-        // If a file is selected, do something with the file (e.g., display the file name)
-        if (selectedFile != null)
-        {
-            // Here you can use the file for further processing, such as playing it
-            welcomeText.setText("Selected file: " + selectedFile.getName());
-
-            // Example: you can add functionality to play the music using MediaPlayer
-            // For instance, create a MediaPlayer here to play the song.
-        } else
-        {
-            welcomeText.setText("No file selected");
-        }
-    }
-
-    private void createSong() {
+    public void createSong() throws IOException {
         /* TODO:
         * åbn nyt vindue
         * indtast sangens navn, kunstner, genre
         * vælg fil via chooseFile()
         * */
 
-
+        Stage createSongStage = new Stage();
+        Parent root = FXMLLoader.load(getClass().getResource("create-song.fxml"));
+        Scene scene2 = new Scene(root, 200, 200);
+        createSongStage.setScene(scene2);
+        createSongStage.show();
     }
 
 }
