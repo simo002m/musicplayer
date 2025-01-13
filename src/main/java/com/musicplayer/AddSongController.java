@@ -63,7 +63,7 @@ public class AddSongController {
         }
     }
 
-    private String songDuration(String filePath) throws UnsupportedAudioFileException, IOException {
+    private int songDuration(String filePath) throws UnsupportedAudioFileException, IOException {
         File file = new File(filePath);
 
         AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(file);
@@ -71,17 +71,20 @@ public class AddSongController {
         long frames = audioInputStream.getFrameLength();
         double durationInSeconds = (frames + 0.0) / format.getFrameRate();
 
+        /*
         double hours = durationInSeconds / 3600;
         double minutes = (durationInSeconds % 3600) / 60;
         double seconds = durationInSeconds % 60;
 
         return String.format("%02d:%02d:%02d", (int) hours, (int) minutes, (int) seconds);
+        */
+        return (int) durationInSeconds;
     }
 
     @FXML
     private void addSongToDB() throws Exception {
         SongDAO songdao = new SongDAOImpl();
-        Song song = new Song(title.getText(), artist.getText(), "", fileChosen, genre.getText());
+        Song song = new Song(title.getText(), artist.getText(), songDuration(fileChosen), fileChosen, genre.getText());
 
         songdao.addSong(song);
     }

@@ -8,7 +8,7 @@ public class Song
     private int songID;
     private String songName;
     private String artistName;
-    private String duration;
+    private int duration;
     private String filePath;
     private String genre;
 
@@ -16,7 +16,7 @@ public class Song
     {
     }
 
-    public Song(String songName, String artistName, String duration, String filePath, String genre)
+    public Song(String songName, String artistName, int duration, String filePath, String genre)
     {
         this.songName = songName;
         this.artistName = artistName;
@@ -55,17 +55,14 @@ public class Song
         this.artistName = artistName;
     }
 
-    public String getDuration()
+    public int getDuration()
     {
         return duration;
     }
 
-    public void setDuration(String duration) { this.duration = duration; }
+    public void setDuration(int duration) { this.duration = duration; }
 
-    public String getFilePath()
-    {
-        return filePath;
-    }
+    public String getFilePath() { return filePath; }
 
     public void setFilePath(String filePath)
     {
