@@ -12,6 +12,7 @@ import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Objects;
 
 
 public class HelloController {
@@ -100,8 +101,10 @@ public class HelloController {
         * */
 
         Stage createSongStage = new Stage();
-        Parent root = FXMLLoader.load(getClass().getResource("create-song.fxml"));
-        Scene scene2 = new Scene(root, 200, 200);
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("create-song.fxml"));
+        Scene scene2 = new Scene(fxmlLoader.load(), 300, 400);
+        createSongStage.setTitle("Tilføj Sang");
+        createSongStage.setResizable(false);
         createSongStage.setScene(scene2);
         createSongStage.show();
     }

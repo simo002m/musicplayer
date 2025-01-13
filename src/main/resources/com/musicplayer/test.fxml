@@ -47,10 +47,4 @@
    <Button id="ForrigeID" fx:id="previousButton" layoutX="262.0" layoutY="487.0" onAction="#handlePreviousButtonAction" style="-fx-background-color: #C0C0C0;" text="⏮ Forrige" />
    <Label id="afspillersangID" fx:id="currentSongLabel" layoutX="20.0" layoutY="523.0" style="-fx-background-color: #C0C0C0;" text="Sang: [Ingen sang valgt]" />
    <Label id="SpillernuID" layoutX="20.0" layoutY="491.0" style="-fx-background-color: #C0C0C0;" text="Spiller nu:" />
-
-   <style>
-      #addSong:hover {
-         -fx-background-color: red;
-      }
-   </style>
 </AnchorPane>

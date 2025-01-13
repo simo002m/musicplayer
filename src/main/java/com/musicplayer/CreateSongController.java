@@ -10,7 +10,7 @@ import java.io.File;
 public class CreateSongController {
 
     @FXML
-    private Label welcomeText;
+    private Label fileMessage;
 
     // This method will be triggered when the user clicks the "Choose File" button
     @FXML
@@ -34,13 +34,13 @@ public class CreateSongController {
         if (selectedFile != null)
         {
             // Here you can use the file for further processing, such as playing it
-            welcomeText.setText("Selected file: " + selectedFile.getName());
+            fileMessage.setText("Selected file: " + selectedFile.getName());
 
             // Example: you can add functionality to play the music using MediaPlayer
             // For instance, create a MediaPlayer here to play the song.
         } else
         {
-            welcomeText.setText("No file selected");
+            fileMessage.setText("No file selected");
         }
     }
 
