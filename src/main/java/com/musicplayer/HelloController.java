@@ -93,20 +93,20 @@ public class HelloController {
         searchField.setText("Simon tag et bad");
     }
 
-    public void createSong() throws IOException {
+    public void openAddSongStage() throws IOException {
         /* TODO:
         * åbn nyt vindue
         * indtast sangens navn, kunstner, genre
         * vælg fil via chooseFile()
         * */
 
-        Stage createSongStage = new Stage();
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("create-song.fxml"));
-        Scene scene2 = new Scene(fxmlLoader.load(), 300, 400);
-        createSongStage.setTitle("Tilføj Sang");
-        createSongStage.setResizable(false);
-        createSongStage.setScene(scene2);
-        createSongStage.show();
+        Stage addSongStage = new Stage();
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("add-song.fxml"));
+        Scene scene2 = new Scene(fxmlLoader.load(), 500, 500);
+        addSongStage.setTitle("Tilføj Sang");
+        addSongStage.setResizable(false);
+        addSongStage.setScene(scene2);
+        addSongStage.show();
     }
 
 }

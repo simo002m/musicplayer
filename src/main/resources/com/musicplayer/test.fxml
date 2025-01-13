@@ -18,7 +18,7 @@
                <TableColumn id="SangID" prefWidth="300.0" style="-fx-background-color: #D2B48C;" text="Sang:" />
             </columns>
             <graphic>
-               <Button mnemonicParsing="false" onAction="#createSong" prefHeight="38.0" prefWidth="335.0" style="-fx-background-color: #D2B48C;" text="Add song" />
+               <Button mnemonicParsing="false" onAction="#openAddSongStage" prefHeight="38.0" prefWidth="335.0" style="-fx-background-color: #D2B48C;" text="Add song" />
             </graphic></TableColumn>
          <TableColumn id="KunstnerID" prefWidth="190.60000610351562" style="-fx-background-color: #D2B48C;" text="Kunstner:" />
          <TableColumn id="VarighedID" prefWidth="140.79997558593755" style="-fx-background-color: #D2B48C;" text="Varighed:" />
