@@ -58,8 +58,6 @@ public class AddSongController {
             fileChosen = selectedFile.getAbsolutePath();
             fileMessage.setText(fileChosen);
 
-            // Example: you can add functionality to play the music using MediaPlayer
-            // For instance, create a MediaPlayer here to play the song.
         } else
         {
             fileMessage.setText("No file selected");
