@@ -297,11 +297,23 @@ public class HelloController
                         }
                     }));
 
+                    ChoiceBox<Playlist> cb = new ChoiceBox<>();
+
+                    cb.setItems(playlistsOList);
+
+                    cb.setOnAction(new EventHandler<ActionEvent>()
+                    {
+                        @Override
+                        public void handle(ActionEvent actionEvent)
+                        {
+                            addSongToPlaylist(cb.getValue().getPlaylistID(), song.getSongID());
+                        }
+                    });
                     Label songNameLabel = new Label("Song: " + song.getSongName());
                     Label artistNameLabel = new Label("Artist: " + song.getArtistName());
                     Label songDurationLabel = new Label("Duration: " + song.getDuration());
 
-                    //grid.add(playSongButton, 0, 0);
+                    grid.add(cb, 0, 0);
                     grid.add(songNameLabel, 1, 0);
                     grid.add(artistNameLabel, 2, 0);
                     grid.add(songDurationLabel, 3, 0);
@@ -318,6 +330,18 @@ public class HelloController
                 }
             }
         });
+    }
+
+    private void addSongToPlaylist(int playingSongID, int songID)
+    {
+        try
+        {
+            playlistdao.addSongToPlaylist(playingSongID, songID);
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+        }
     }
 
     private void fillPlaylistListView()

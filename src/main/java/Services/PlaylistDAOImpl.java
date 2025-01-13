@@ -62,6 +62,35 @@ public class PlaylistDAOImpl implements PlaylistDAO
     }
 
     @Override
+    public void addSongToPlaylist(int playlistID, int songID)
+    {
+        Connection con = null;
+
+        try
+        {
+            String sql = "INSERT INTO songsPlaylist VALUES(?,?)";
+            con = SqlConnection.getConnection();
+
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(2, songID);
+            ps.setInt(1, playlistID);
+            int affectedRows = ps.executeUpdate();
+            if (affectedRows > 0)
+            {
+                System.out.println("Song added to playlist");
+            }
+            else
+            {
+                System.out.println("Failed to add song to playlist");
+            }
+        }
+        catch (Exception e)
+        {
+            System.out.println("Failed to add song to playlist with exception");
+        }
+    }
+
+    @Override
     public void deletePlaylistById(int id)
     {
         Connection con = null;
