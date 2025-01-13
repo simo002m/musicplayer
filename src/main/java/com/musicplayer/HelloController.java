@@ -94,12 +94,6 @@ public class HelloController {
     }
 
     public void openAddSongStage() throws IOException {
-        /* TODO:
-        * åbn nyt vindue
-        * indtast sangens navn, kunstner, genre
-        * vælg fil via chooseFile()
-        * */
-
         Stage addSongStage = new Stage();
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("add-song.fxml"));
         Scene scene2 = new Scene(fxmlLoader.load(), 500, 500);
