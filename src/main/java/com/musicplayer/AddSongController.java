@@ -84,7 +84,7 @@ public class AddSongController {
     @FXML
     private void addSongToDB() throws Exception {
         SongDAO songdao = new SongDAOImpl();
-        Song song = new Song(title.getText(), artist.getText(), songDuration(fileChosen), fileChosen, genre.getText());
+        Song song = new Song(title.getText(), artist.getText(), 0, fileChosen, genre.getText());
 
         songdao.addSong(song);
     }
