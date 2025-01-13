@@ -1,6 +1,8 @@
 package com.musicplayer;
 
 import Models.*;
+import Services.PlaylistDAO;
+import Services.PlaylistDAOImpl;
 import Services.SongDAO;
 import Services.SongDAOImpl;
 import javafx.application.Platform;
@@ -10,6 +12,8 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -23,22 +27,26 @@ import java.io.File;
 
 public class HelloController
 {
+    SongDAO songdao = new SongDAOImpl();
+    PlaylistDAO playlistdao = new PlaylistDAOImpl();
+
+    @FXML
+    ListView songsListView = new ListView();
     private ObservableList<Song> songsOList = FXCollections.observableArrayList();
 
     private MediaPlayer mediaPlayer;
+    private Song playingSong;
 
     @FXML
     private Slider timeSlider;
     private Duration duration;
 
     @FXML
-    ListView songsListView = new ListView();
+    ListView playlistListView = new ListView();
+    private ObservableList<Playlist> playlistsOList = FXCollections.observableArrayList();
 
     @FXML
     private TextField searchField;
-
-    @FXML
-    private TableView<?> playlistTable;
 
 
     @FXML
@@ -55,72 +63,20 @@ public class HelloController
         // initialisere nogle elementer
         currentSongLabel.setText("Sang: [Ingen sang valgt]");
 
-        SongDAO songdao = new SongDAOImpl();
-
         try
         {
             songsOList.addAll(songdao.getAllSongs());
-            songsListView.setItems(songsOList);
-
-
-            songsListView.setCellFactory(lv -> new ListCell<Song>()
-            {
-                @Override
-                protected void updateItem(Song song, boolean empty)
-                {
-                    super.updateItem(song, empty);
-                    if (empty || song == null)
-                    {
-                        setText(null);
-                        setGraphic(null);
-                    }
-                    else
-                    {
-                        GridPane grid = new GridPane();
-
-                        Button playSongButton = new Button("Play");
-                        playSongButton.setOnAction(new EventHandler<ActionEvent>() {
-                            @Override
-                            public void handle(ActionEvent actionEvent) {
-                                playSongFromListClick(song.getSongID());
-                            }
-                        });
-                        Label songNameLabel = new Label("Song: " + song.getSongName());
-                        Label artistNameLabel = new Label("Artist: " + song.getArtistName());
-                        Label songDurationLabel = new Label("Duration: " + song.getDuration());
-
-                        grid.add(playSongButton, 0, 0);
-                        grid.add(songNameLabel, 1, 0);
-                        grid.add(artistNameLabel, 2, 0);
-                        grid.add(songDurationLabel, 3, 0);
-
-
-
-                        grid.getColumnConstraints().add(new ColumnConstraints(40));
-                        grid.getColumnConstraints().add(new ColumnConstraints(140));
-                        grid.getColumnConstraints().add(new ColumnConstraints(250));
-                        grid.getColumnConstraints().add(new ColumnConstraints(200));
-
-
-                        setGraphic(grid);
-                    }
-                }
-            });
+            Playlist all = new Playlist("Alle sange");
+            all.setPlaylistID(0);
+            playlistsOList.add(all);
+            playlistsOList.addAll(playlistdao.getAllPlaylists());
+            fillSongListView();
+            fillPlaylistListView();
         }
         catch (Exception e)
         {
-            // Handle any exceptions here, if needed
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         }
-    }
-
-    // Tilføj event handlers
-    @FXML
-    private void handleNextButtonAction()
-    {
-
-        System.out.println("Næste sang blev trykket");
-
     }
 
     @FXML
@@ -128,28 +84,29 @@ public class HelloController
     {
         try
         {
-            Song foundSong = null;
+            playingSong = null;
             //Searches for the chosen song to be played
             for (Song song : songsOList)
             {
                 if (song.getSongID() == songID)
                 {
-                    foundSong = song;
+                    playingSong = song;
                     break;
                 }
             }
 
             // if the song was found it will create the media to start playing the song
-            if(foundSong != null)
+            if(playingSong != null)
             {
                 if (mediaPlayer != null)
                 {
                     mediaPlayer.stop();
                 }
 
-                currentSongLabel.setText("Sang: " + foundSong.getSongName());
-                Media media = new Media(getClass().getResource("/media/" + foundSong.getFilePath()).toURI().toString());
+                currentSongLabel.setText("Sang: " + playingSong.getSongName());
+                Media media = new Media(getClass().getResource("/media/" + playingSong.getFilePath()).toURI().toString());
                 mediaPlayer = new MediaPlayer(media);
+
                 mediaPlayer.currentTimeProperty().addListener(new InvalidationListener()
                 {
                     @Override
@@ -187,7 +144,7 @@ public class HelloController
                     }
                 });
 
-                volumeSlider = new Slider();
+
                 volumeSlider.setPrefWidth(70);
                 volumeSlider.setMaxWidth(Region.USE_PREF_SIZE);
                 volumeSlider.setMinWidth(30);
@@ -233,13 +190,34 @@ public class HelloController
         }
     }
 
-
+    // Tilføj event handlers
+    @FXML
+    private void handleNextButtonAction()
+    {
+        if (mediaPlayer != null)
+        {
+            int indexOfNextSong = songsOList.indexOf(playingSong) +1;
+            if (indexOfNextSong > songsOList.size() - 1)
+            {
+                indexOfNextSong = 0;
+            }
+            playingSong = songsOList.get(indexOfNextSong);
+            playSongFromListClick(playingSong.getSongID());
+        }
+    }
 
     @FXML
     private void handlePreviousButtonAction()
     {
-        System.out.println("Forrige sang blev trykket");
-
+        if (mediaPlayer != null)
+        {
+            int indexOfPreviousSong = songsOList.indexOf(playingSong)-1;
+            if (indexOfPreviousSong >= 0)
+            {
+                playingSong = songsOList.get(indexOfPreviousSong);
+            }
+            playSongFromListClick(playingSong.getSongID());
+        }
     }
     @FXML
     private void handleStopButtonAction()
@@ -247,18 +225,20 @@ public class HelloController
         System.out.println("Stop blev trykket");
 
     }
-    @FXML
-    private void handleVolumeSlider()
-    {
-        System.out.println("Volume blev trykket");
-
-    }
 
     @FXML
     private void searchClick()
     {
-        System.out.println(searchField.getText());
-        searchField.setText("Simon tag et bad");
+        try
+        {
+            songsOList.clear();
+            songsOList.addAll(songdao.getSongsBySearch(searchField.getText()));
+            fillSongListView();
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+        }
     }
 
     /**
@@ -288,6 +268,109 @@ public class HelloController
                     }
                 }
             });
+        }
+    }
+
+    private void fillSongListView()
+    {
+        songsListView.setItems(songsOList);
+
+        songsListView.setCellFactory(lv -> new ListCell<Song>()
+        {
+            @Override
+            protected void updateItem(Song song, boolean empty)
+            {
+                super.updateItem(song, empty);
+                if (empty || song == null)
+                {
+                    setText(null);
+                    setGraphic(null);
+                }
+                else
+                {
+                    GridPane grid = new GridPane();
+                    //Sets event handler when click is registered to play the song
+                    grid.setOnMousePressed((new EventHandler<MouseEvent>() {
+                        @Override
+                        public void handle(MouseEvent mouseEvent) {
+                            playSongFromListClick(song.getSongID());
+                        }
+                    }));
+
+                    Label songNameLabel = new Label("Song: " + song.getSongName());
+                    Label artistNameLabel = new Label("Artist: " + song.getArtistName());
+                    Label songDurationLabel = new Label("Duration: " + song.getDuration());
+
+                    //grid.add(playSongButton, 0, 0);
+                    grid.add(songNameLabel, 1, 0);
+                    grid.add(artistNameLabel, 2, 0);
+                    grid.add(songDurationLabel, 3, 0);
+
+
+
+                    grid.getColumnConstraints().add(new ColumnConstraints(40));
+                    grid.getColumnConstraints().add(new ColumnConstraints(140));
+                    grid.getColumnConstraints().add(new ColumnConstraints(250));
+                    grid.getColumnConstraints().add(new ColumnConstraints(200));
+
+
+                    setGraphic(grid);
+                }
+            }
+        });
+    }
+
+    private void fillPlaylistListView()
+    {
+        playlistListView.setItems(playlistsOList);
+
+        playlistListView.setCellFactory(lv -> new ListCell<Playlist>()
+        {
+            @Override
+            protected void updateItem(Playlist playlist, boolean empty)
+            {
+                super.updateItem(playlist, empty);
+                if (empty || playlist == null)
+                {
+                    setText(null);
+                    setGraphic(null);
+                }
+                else
+                {
+                    Label label = new Label();
+                    label.setText(playlist.getPlaylistName());
+                    label.setOnMousePressed(new EventHandler<MouseEvent>()
+                    {
+                        @Override
+                        public void handle(MouseEvent mouseEvent)
+                        {
+                            getPlaylistSongs(playlist.getPlaylistID());
+                        }
+                    });
+                    setGraphic(label);
+                }
+            }
+        });
+    }
+
+    private void getPlaylistSongs(int playlistID)
+    {
+        try
+        {
+            songsOList.clear();
+            if (playlistID == 0)
+            {
+                songsOList.addAll(songdao.getAllSongs());
+            }
+            else
+            {
+                songsOList.addAll(songdao.getSongsByPlaylistID(playlistID));
+            }
+            fillSongListView();
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
         }
     }
 
@@ -322,5 +405,4 @@ public class HelloController
             //welcomeText.setText("No file selected");
         }
     }
-
 }
