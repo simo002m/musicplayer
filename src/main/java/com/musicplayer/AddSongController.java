@@ -55,9 +55,8 @@ public class AddSongController {
         if (selectedFile != null)
         {
             // Here you can use the file for further processing, such as playing it
-            fileChosen = selectedFile.getAbsolutePath();
+            fileChosen = selectedFile.getName();
             fileMessage.setText(fileChosen);
-
         } else
         {
             fileMessage.setText("No file selected");
