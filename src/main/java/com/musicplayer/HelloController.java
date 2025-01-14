@@ -291,9 +291,11 @@ public class HelloController
                 {
                     GridPane grid = new GridPane();
                     //Sets event handler when click is registered to play the song
-                    grid.setOnMousePressed((new EventHandler<MouseEvent>() {
+                    grid.setOnMousePressed((new EventHandler<MouseEvent>()
+                    {
                         @Override
-                        public void handle(MouseEvent mouseEvent) {
+                        public void handle(MouseEvent mouseEvent)
+                        {
                             playSongFromListClick(song.getSongID());
                         }
                     }));
@@ -310,9 +312,7 @@ public class HelloController
                         }
                     }
                     cb.setValue(playlistlabel);
-
-
-
+                    // event handler for adding song to playlist
                     cb.setOnAction(new EventHandler<ActionEvent>()
                     {
                         @Override
@@ -325,22 +325,44 @@ public class HelloController
                             cb.setValue(playlistlabel);
                         }
                     });
-                    Label songNameLabel = new Label("Song: " + song.getSongName());
-                    Label artistNameLabel = new Label("Artist: " + song.getArtistName());
-                    Label songDurationLabel = new Label("Duration: " + song.getDuration());
+
+
+                    Label songNameLabel = new Label(song.getSongName());
+                    Label artistNameLabel = new Label(song.getArtistName());
+                    String duration = (int)song.getDuration()/60 + ":" + (int)song.getDuration()%60;
+                    Label songDurationLabel = new Label(duration);
+
+                    Button deleteSong = new Button("X");
+                    deleteSong.setOnAction(new EventHandler<ActionEvent>()
+                    {
+                        @Override
+                        public void handle(ActionEvent actionEvent)
+                        {
+                            try
+                            {
+                                songdao.deleteSong(song);
+                                songsOList.remove(song);
+                            }
+                            catch (Exception e)
+                            {
+                                System.out.println(e.getMessage());
+                            }
+                        }
+                    });
 
                     grid.add(cb, 0, 0);
                     grid.add(songNameLabel, 1, 0);
                     grid.add(artistNameLabel, 2, 0);
                     grid.add(songDurationLabel, 3, 0);
+                    grid.add(deleteSong, 4, 0);
 
 
 
-                    grid.getColumnConstraints().add(new ColumnConstraints(100));
-                    grid.getColumnConstraints().add(new ColumnConstraints(140));
-                    grid.getColumnConstraints().add(new ColumnConstraints(250));
-                    grid.getColumnConstraints().add(new ColumnConstraints(200));
-
+                    grid.getColumnConstraints().add(new ColumnConstraints(80));
+                    grid.getColumnConstraints().add(new ColumnConstraints(210));
+                    grid.getColumnConstraints().add(new ColumnConstraints(230));
+                    grid.getColumnConstraints().add(new ColumnConstraints(50));
+                    grid.getColumnConstraints().add(new ColumnConstraints(50));
 
                     setGraphic(grid);
                 }
@@ -387,9 +409,11 @@ public class HelloController
                         }
                     });
                     Button deleteButton = new Button("X");
-                    deleteButton.setOnMousePressed(new EventHandler<MouseEvent>() {
+                    deleteButton.setOnMousePressed(new EventHandler<MouseEvent>()
+                    {
                         @Override
-                        public void handle(MouseEvent mouseEvent) {
+                        public void handle(MouseEvent mouseEvent)
+                        {
                             try
                             {
                                 playlistdao.deletePlaylistById(playlist.getPlaylistID());
