@@ -8,7 +8,7 @@ public interface PlaylistDAO
 {
     List<Playlist> getAllPlaylists();
     Playlist getPlaylistById(int id);
-    void addSongToPlaylist(int playlistID, int songID);
+    void addSongToPlaylist( int songID, int playlistID);
     void deletePlaylistById(int id);
     void updatePlaylist(Playlist playlist);
     void createPlaylist(Playlist playlist);

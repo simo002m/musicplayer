@@ -62,7 +62,7 @@ public class PlaylistDAOImpl implements PlaylistDAO
     }
 
     @Override
-    public void addSongToPlaylist(int playlistID, int songID)
+    public void addSongToPlaylist(int songID, int playlistID)
     {
         Connection con = null;
 
@@ -72,8 +72,8 @@ public class PlaylistDAOImpl implements PlaylistDAO
             con = SqlConnection.getConnection();
 
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(2, songID);
-            ps.setInt(1, playlistID);
+            ps.setInt(1, songID);
+            ps.setInt(2, playlistID);
             int affectedRows = ps.executeUpdate();
             if (affectedRows > 0)
             {

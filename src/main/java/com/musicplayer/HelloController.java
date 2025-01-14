@@ -22,6 +22,7 @@ import javafx.stage.Stage;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.util.Duration;
+import javafx.util.StringConverter;
 
 import java.io.File;
 
@@ -297,16 +298,31 @@ public class HelloController
                         }
                     }));
 
-                    ChoiceBox<Playlist> cb = new ChoiceBox<>();
 
-                    cb.setItems(playlistsOList);
+                    ChoiceBox<Playlist> cb = new ChoiceBox<>();
+                    Playlist playlistlabel = new Playlist("Playlists");
+                    cb.getItems().add(playlistlabel);
+                    for (Playlist playlist : playlistsOList)
+                    {
+                        if (playlist.getPlaylistID() != 0)
+                        {
+                            cb.getItems().add(playlist);
+                        }
+                    }
+                    cb.setValue(playlistlabel);
+
+
 
                     cb.setOnAction(new EventHandler<ActionEvent>()
                     {
                         @Override
                         public void handle(ActionEvent actionEvent)
                         {
-                            addSongToPlaylist(cb.getValue().getPlaylistID(), song.getSongID());
+                            if (!cb.getValue().equals(playlistlabel))
+                            {
+                                addSongToPlaylist(song.getSongID(), cb.getValue().getPlaylistID());
+                            }
+                            cb.setValue(playlistlabel);
                         }
                     });
                     Label songNameLabel = new Label("Song: " + song.getSongName());
@@ -320,7 +336,7 @@ public class HelloController
 
 
 
-                    grid.getColumnConstraints().add(new ColumnConstraints(40));
+                    grid.getColumnConstraints().add(new ColumnConstraints(100));
                     grid.getColumnConstraints().add(new ColumnConstraints(140));
                     grid.getColumnConstraints().add(new ColumnConstraints(250));
                     grid.getColumnConstraints().add(new ColumnConstraints(200));
@@ -332,11 +348,11 @@ public class HelloController
         });
     }
 
-    private void addSongToPlaylist(int playingSongID, int songID)
+    private void addSongToPlaylist(int songID, int playlistID)
     {
         try
         {
-            playlistdao.addSongToPlaylist(playingSongID, songID);
+            playlistdao.addSongToPlaylist(songID, playlistID);
         }
         catch (Exception e)
         {
