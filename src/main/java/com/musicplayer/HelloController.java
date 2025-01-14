@@ -25,6 +25,7 @@ import javafx.util.Duration;
 import javafx.util.StringConverter;
 
 import java.io.File;
+import java.util.List;
 
 public class HelloController
 {
@@ -408,29 +409,64 @@ public class HelloController
                             getPlaylistSongs(playlist.getPlaylistID());
                         }
                     });
-                    Button deleteButton = new Button("X");
-                    deleteButton.setOnMousePressed(new EventHandler<MouseEvent>()
+                    if (playlist.getPlaylistID() != 0)
                     {
-                        @Override
-                        public void handle(MouseEvent mouseEvent)
+                        Button deleteButton = new Button("X");
+                        deleteButton.setOnMousePressed(new EventHandler<MouseEvent>()
                         {
-                            try
+                            @Override
+                            public void handle(MouseEvent mouseEvent)
                             {
-                                playlistdao.deletePlaylistById(playlist.getPlaylistID());
-                                playlistsOList.remove(playlist);
-                                fillPlaylistListView();
+                                try
+                                {
+                                    playlistdao.deletePlaylistById(playlist.getPlaylistID());
+                                    playlistsOList.remove(playlist);
+                                    fillPlaylistListView();
+                                }
+                                catch (Exception e)
+                                {
+                                    System.out.println(e.getMessage());
+                                }
                             }
-                            catch (Exception e)
-                            {
-                                System.out.println(e.getMessage());
-                            }
-                        }
-                    });
-                    Label label = new Label();
-                    label.setText(playlist.getPlaylistName());
+                        });
+                        grid.add(deleteButton, 0, 0);
+                    }
 
-                    grid.add(deleteButton, 0, 0);
+                    Label label = new Label(playlist.getPlaylistName());
+
+                    String totalDuration = "";
+                    try
+                    {
+                        List<Song> songs;
+                        if (playlist.getPlaylistID() == 0)
+                        {
+                            songs = songdao.getAllSongs();
+                        }
+                        else
+                        {
+                            songs = songdao.getSongsByPlaylistID(playlist.getPlaylistID());
+                        }
+
+                        int totalSeconds = 0;
+                        for (Song song : songs)
+                        {
+                            totalSeconds += song.getDuration();
+                        }
+                        totalDuration = (int)totalSeconds/60 + ":" + (int)totalSeconds%60;
+                    }
+                    catch (Exception e)
+                    {
+                        System.out.println(e.getMessage());
+                    }
+
+                    Label playlistDurationLabel = new Label(totalDuration);
+
+
                     grid.add(label, 1, 0);
+                    grid.add(playlistDurationLabel, 2, 0);
+
+                    grid.getColumnConstraints().add(new ColumnConstraints(30));
+                    grid.getColumnConstraints().add(new ColumnConstraints(60));
                     setGraphic(grid);
                 }
             }
