@@ -49,6 +49,9 @@ public class HelloController
     @FXML
     private TextField searchField;
 
+    @FXML
+    private TextField playlistNameTextField;
+
 
     @FXML
     private Label currentSongLabel;
@@ -67,10 +70,7 @@ public class HelloController
         try
         {
             songsOList.addAll(songdao.getAllSongs());
-            Playlist all = new Playlist("Alle sange");
-            all.setPlaylistID(0);
-            playlistsOList.add(all);
-            playlistsOList.addAll(playlistdao.getAllPlaylists());
+            fillPlaylistsOList();
             fillSongListView();
             fillPlaylistListView();
         }
@@ -377,9 +377,8 @@ public class HelloController
                 }
                 else
                 {
-                    Label label = new Label();
-                    label.setText(playlist.getPlaylistName());
-                    label.setOnMousePressed(new EventHandler<MouseEvent>()
+                    GridPane grid = new GridPane();
+                    grid.setOnMousePressed(new EventHandler<MouseEvent>()
                     {
                         @Override
                         public void handle(MouseEvent mouseEvent)
@@ -387,10 +386,57 @@ public class HelloController
                             getPlaylistSongs(playlist.getPlaylistID());
                         }
                     });
-                    setGraphic(label);
+                    Button deleteButton = new Button("X");
+                    deleteButton.setOnMousePressed(new EventHandler<MouseEvent>() {
+                        @Override
+                        public void handle(MouseEvent mouseEvent) {
+                            try
+                            {
+                                playlistdao.deletePlaylistById(playlist.getPlaylistID());
+                                playlistsOList.remove(playlist);
+                                fillPlaylistListView();
+                            }
+                            catch (Exception e)
+                            {
+                                System.out.println(e.getMessage());
+                            }
+                        }
+                    });
+                    Label label = new Label();
+                    label.setText(playlist.getPlaylistName());
+
+                    grid.add(deleteButton, 0, 0);
+                    grid.add(label, 1, 0);
+                    setGraphic(grid);
                 }
             }
         });
+    }
+
+    @FXML
+    private void addPlaylistClick()
+    {
+        try
+        {
+            playlistdao.createPlaylist(new Playlist(playlistNameTextField.getText()));
+            fillPlaylistsOList();
+            fillPlaylistListView();
+            fillSongListView();
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private void fillPlaylistsOList()
+    {
+        playlistsOList.clear();
+        Playlist all = new Playlist("Alle sange");
+        all.setPlaylistID(0);
+        playlistsOList.add(all);
+        playlistsOList.addAll(playlistdao.getAllPlaylists());
+        playlistNameTextField.clear();
     }
 
     private void getPlaylistSongs(int playlistID)

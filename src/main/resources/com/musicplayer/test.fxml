@@ -25,6 +25,10 @@
        <ScrollPane>
            <ListView fx:id="playlistListView"/>
        </ScrollPane>
+       <HBox>
+           <TextField promptText="Playlist" fx:id="playlistNameTextField"/>
+           <Button text="Add" minWidth="-Infinity" onAction="#addPlaylistClick"/>
+       </HBox>
    </VBox>
    <Slider id="SpillelinjeID" fx:id="timeSlider" layoutX="205.0" layoutY="525.0" prefHeight="14.0" prefWidth="390.0" />
    <Slider id="LydstyrkeID" fx:id="volumeSlider" layoutX="662.0" layoutY="518.0" prefHeight="14.0" prefWidth="111.0" />
@@ -41,8 +45,7 @@
                   <children>
                   
                                  <!-- Playlist table -->
-                  
-                                 <TableView fx:id="playlistTable" layoutX="-4.0" layoutY="-1.0" prefHeight="72.0" prefWidth="632.0">
+                      <TableView fx:id="playlistTable" layoutX="-4.0" layoutY="-1.0" prefHeight="72.0" prefWidth="632.0">
                         <columns>
                            <TableColumn prefWidth="303.0000305175781">
                               <columns>
