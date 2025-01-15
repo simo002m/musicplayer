@@ -3,6 +3,8 @@ package Services;
 import Models.Song;
 import util.SqlConnection;
 
+import java.io.File;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -173,11 +175,26 @@ public class SongDAOImpl implements SongDAO
             if (affectedRows > 0)
             {
                 System.out.println("Song deleted successfully");
+
+                File fileToDelete = new File("src/main/resources/media/" + song.getFilePath());
+                boolean isDeleted = fileToDelete.delete();
+                if (isDeleted)
+                {
+                    System.out.println("Song file deleted successfully");
+                }
+                else
+                {
+                    System.out.println("Failed to delete song file");
+                }
             }
             else
             {
                 System.out.println("Song deleted failed");
             }
+        }
+        catch (IOException e)
+        {
+            System.out.println(e.getMessage());
         }
         catch(Exception e)
         {
