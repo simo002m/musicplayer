@@ -322,6 +322,7 @@ public class HelloController
                             if (!cb.getValue().equals(playlistlabel))
                             {
                                 addSongToPlaylist(song.getSongID(), cb.getValue().getPlaylistID());
+                                fillPlaylistListView();
                             }
                             cb.setValue(playlistlabel);
                         }
@@ -343,6 +344,7 @@ public class HelloController
                             {
                                 songdao.deleteSong(song);
                                 songsOList.remove(song);
+                                fillPlaylistListView();
                             }
                             catch (Exception e)
                             {
