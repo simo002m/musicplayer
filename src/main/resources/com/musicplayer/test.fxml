@@ -23,18 +23,19 @@
    <VBox layoutX="39.0" layoutY="110.0" prefHeight="300.0" prefWidth="150.0">
        <Label prefWidth="149.59998931884766" style="-fx-background-color: #D2B48C;" text="Playlist" />
        <ScrollPane>
-           <ListView fx:id="playlistListView"/>
+           <ListView fx:id="playlistListView" />
        </ScrollPane>
        <HBox>
-           <TextField promptText="Playlist" fx:id="playlistNameTextField"/>
-           <Button text="Add" minWidth="-Infinity" onAction="#addPlaylistClick"/>
+           <TextField fx:id="playlistNameTextField" promptText="Playlist" />
+           <Button minWidth="-Infinity" onAction="#addPlaylistClick" text="Add" />
        </HBox>
    </VBox>
    <Slider id="SpillelinjeID" fx:id="timeSlider" layoutX="205.0" layoutY="525.0" prefHeight="14.0" prefWidth="390.0" />
    <Slider id="LydstyrkeID" fx:id="volumeSlider" layoutX="662.0" layoutY="518.0" prefHeight="14.0" prefWidth="111.0" />
-   <Button id="NæsteID" layoutX="468.0" layoutY="487.0" onAction="#handleNextButtonAction" style="-fx-background-color: #C0C0C0;" text="⏭ Næste" />
-   <Button id="PauseID" layoutX="354.0" layoutY="487.0" onAction="#handlePlayPauseButtonAction" style="-fx-background-color: #C0C0C0;" text="⏯ Afspil/Pause" />
-   <Button id="ForrigeID" layoutX="262.0" layoutY="487.0" onAction="#handlePreviousButtonAction" style="-fx-background-color: #C0C0C0;" text="⏮ Forrige" />
+   <Button id="NæsteID" layoutX="475.0" layoutY="487.0" onAction="#handleNextButtonAction" style="-fx-background-color: #C0C0C0;" text="⏭ Næste" />
+    <Button id="StopID" layoutX="340.0" layoutY="487.0" onAction="#handleStopButtonAction" style="-fx-background-color: #C0C0C0;" text="◼" />
+   <Button id="PauseID" layoutX="375.0" layoutY="487.0" onAction="#handlePlayPauseButtonAction" style="-fx-background-color: #C0C0C0;" text="⏯ Afspil/Pause" />
+   <Button id="ForrigeID" layoutX="265.0" layoutY="487.0" onAction="#handlePreviousButtonAction" style="-fx-background-color: #C0C0C0;" text="⏮ Forrige" />
    <Label id="afspillersangID" fx:id="currentSongLabel" layoutX="20.0" layoutY="523.0" style="-fx-background-color: #C0C0C0;" text="Sang: [Ingen sang valgt]" />
    <Label id="SpillernuID" layoutX="20.0" layoutY="491.0" style="-fx-background-color: #C0C0C0;" text="Spiller nu:" />
  <AnchorPane layoutX="240.0" layoutY="131.0" minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">

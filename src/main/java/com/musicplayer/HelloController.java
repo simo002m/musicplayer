@@ -221,11 +221,11 @@ public class HelloController
             playSongFromListClick(playingSong.getSongID());
         }
     }
+
     @FXML
     private void handleStopButtonAction()
     {
-        System.out.println("Stop blev trykket");
-
+        mediaPlayer.stop();
     }
 
     @FXML
