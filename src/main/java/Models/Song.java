@@ -9,6 +9,19 @@ public class Song
     private String filePath;
     private String genre;
 
+    public Song()
+    {
+    }
+
+    public Song(String songName, String artistName, int duration, String filePath, String genre)
+    {
+        this.songName = songName;
+        this.artistName = artistName;
+        this.duration = duration;
+        this.filePath = filePath;
+        this.genre = genre;
+    }
+
     public int getSongID()
     {
         return songID;
@@ -44,15 +57,9 @@ public class Song
         return duration;
     }
 
-    public void setDuration(int duration)
-    {
-        this.duration = duration;
-    }
+    public void setDuration(int duration) { this.duration = duration; }
 
-    public String getFilePath()
-    {
-        return filePath;
-    }
+    public String getFilePath() { return filePath; }
 
     public void setFilePath(String filePath)
     {
@@ -69,16 +76,4 @@ public class Song
         this.genre = genre;
     }
 
-    public Song()
-    {
-    }
-
-    public Song(String songName, String artistName, int duration, String filePath, String genre)
-    {
-        this.songName = songName;
-        this.artistName = artistName;
-        this.duration = duration;
-        this.filePath = filePath;
-        this.genre = genre;
-    }
 }

@@ -11,6 +11,9 @@ import javafx.beans.Observable;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
@@ -26,6 +29,9 @@ import javafx.util.StringConverter;
 
 import java.io.File;
 import java.util.List;
+import java.io.IOException;
+import java.util.Objects;
+
 
 public class HelloController
 {
@@ -552,5 +558,14 @@ public class HelloController
         {
             //welcomeText.setText("No file selected");
         }
+    public void openAddSongStage() throws IOException {
+        Stage addSongStage = new Stage();
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("add-song.fxml"));
+        Scene scene2 = new Scene(fxmlLoader.load(), 500, 500);
+        addSongStage.setTitle("Tilføj Sang");
+        addSongStage.setResizable(false);
+        addSongStage.setScene(scene2);
+        addSongStage.show();
     }
+
 }

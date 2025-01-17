@@ -12,6 +12,7 @@ module com.musicplayer {
     requires com.almasb.fxgl.all;
     requires java.sql;
     requires javafx.media;
+    requires java.desktop;
 
     opens com.musicplayer to javafx.fxml;
     exports com.musicplayer;
