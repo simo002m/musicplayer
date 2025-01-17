@@ -7,19 +7,21 @@ import Services.SongDAOImpl;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
-import javax.sound.sampled.AudioFormat;
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.File;
-import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 
-public class AddSongController {
-
-    static String fileChosen = null;
+public class AddSongController
+{
+    private File selectedFile;
+    private String fileChosen = null;
 
     @FXML
     private Label fileMessage;
@@ -57,36 +59,94 @@ public class AddSongController {
             // Here you can use the file for further processing, such as playing it
             fileChosen = selectedFile.getName();
             fileMessage.setText(fileChosen);
-        } else
+
+            this.selectedFile = selectedFile;
+        }
+        else
         {
             fileMessage.setText("No file selected");
         }
     }
 
-    private int songDuration(String filePath) throws UnsupportedAudioFileException, IOException {
-        File file = new File(filePath);
+    private void songDuration(String filePath)
+    {
+        try
+        {
+            System.out.println(filePath);
+            String path = ("src/main/resources/media/" + filePath);
+            Media media = new Media(new File(path).toURI().toString());
+            MediaPlayer mediaplayer = new MediaPlayer(media);
 
-        AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(file);
-        AudioFormat format = audioInputStream.getFormat();
-        long frames = audioInputStream.getFrameLength();
-        double durationInSeconds = (frames + 0.0) / format.getFrameRate();
+            mediaplayer.setOnReady(new Runnable()
+            {
+                @Override
+                public void run()
+                {
+                    insertToDB((int)mediaplayer.getMedia().getDuration().toSeconds());
+                }
+            });
+        }
+        catch (Exception e)
+        {
+            throw new RuntimeException(e);
+        }
+    }
 
-        /*
-        double hours = durationInSeconds / 3600;
-        double minutes = (durationInSeconds % 3600) / 60;
-        double seconds = durationInSeconds % 60;
+    private boolean uploadSelectedFile()
+    {
+        // Get the resources directory path
+        String resourcePath = "src/main/resources/media";
 
-        return String.format("%02d:%02d:%02d", (int) hours, (int) minutes, (int) seconds);
-        */
-        return (int) durationInSeconds;
+        // Ensure the path is properly decoded (handles spaces and special characters)
+        Path resourcesDirectory = Path.of(resourcePath);
+
+        // Define the target path in the resources directory
+        Path targetPath = resourcesDirectory.resolve(this.selectedFile.getName());
+        try
+        {
+            // Copy the file to the resources directory
+            Files.copy(this.selectedFile.toPath(), targetPath, StandardCopyOption.REPLACE_EXISTING);
+            return true;
+        }
+        catch (Exception e)
+        {
+            System.err.println("Failed to upload file: " + e.getMessage());
+            return false;
+        }
+    }
+
+    private void insertToDB(int duration)
+    {
+        try
+        {
+            SongDAO songdao = new SongDAOImpl();
+
+            Song song = new Song(title.getText(), artist.getText(), duration, fileChosen, genre.getText());
+            songdao.addSong(song);
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+        }
     }
 
     @FXML
-    private void addSongToDB() throws Exception {
-        SongDAO songdao = new SongDAOImpl();
-        Song song = new Song(title.getText(), artist.getText(), 0, fileChosen, genre.getText());
-
-        songdao.addSong(song);
+    private void addSong() throws Exception
+    {
+        try
+        {
+            if (uploadSelectedFile())
+            {
+                songDuration(fileChosen);
+            }
+            else
+            {
+                fileMessage.setText("Failed to upload file");
+            }
+        }
+        catch (Exception e)
+        {
+            throw new RuntimeException(e);
+        }
     }
-
 }
