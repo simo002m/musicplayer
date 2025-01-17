@@ -15,22 +15,16 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
-import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.util.Duration;
-import javafx.util.StringConverter;
-
-import java.io.File;
 import java.util.List;
 import java.io.IOException;
-import java.util.Objects;
 
 
 public class HelloController
@@ -128,7 +122,8 @@ public class HelloController
                 mediaPlayer.setOnReady(new Runnable()
                 {
                     @Override
-                    public void run() {
+                    public void run()
+                    {
                         duration = mediaPlayer.getMedia().getDuration();
                         updateValues();
                     }
@@ -528,37 +523,8 @@ public class HelloController
         }
     }
 
-    // This method will be triggered when the user clicks the "Choose File" button
-    @FXML
-    protected void chooseFile()
+    public void openAddSongStage() throws IOException
     {
-        // Create a new FileChooser instance
-        FileChooser fileChooser = new FileChooser();
-
-        // Set up the file filters for MP3 and WAV files
-        FileChooser.ExtensionFilter mp3Filter = new FileChooser.ExtensionFilter("MP3 Files", "*.mp3");
-        FileChooser.ExtensionFilter wavFilter = new FileChooser.ExtensionFilter("WAV Files", "*.wav");
-
-        // Add the filters to the file chooser
-        fileChooser.getExtensionFilters().add(mp3Filter);
-        fileChooser.getExtensionFilters().add(wavFilter);
-
-        // Open the file chooser and get the selected file
-        File selectedFile = fileChooser.showOpenDialog(new Stage());
-
-        // If a file is selected, do something with the file (e.g., display the file name)
-        if (selectedFile != null)
-        {
-            // Here you can use the file for further processing, such as playing it
-            //welcomeText.setText("Selected file: " + selectedFile.getName());
-
-            // Example: you can add functionality to play the music using MediaPlayer
-            // For instance, create a MediaPlayer here to play the song.
-        } else
-        {
-            //welcomeText.setText("No file selected");
-        }
-    public void openAddSongStage() throws IOException {
         Stage addSongStage = new Stage();
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("add-song.fxml"));
         Scene scene2 = new Scene(fxmlLoader.load(), 500, 500);
@@ -567,5 +533,4 @@ public class HelloController
         addSongStage.setScene(scene2);
         addSongStage.show();
     }
-
 }
