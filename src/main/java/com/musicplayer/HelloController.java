@@ -19,6 +19,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.media.Media;
@@ -31,8 +33,10 @@ import javafx.util.StringConverter;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 import java.io.IOException;
+import java.util.Random;
 
 
 public class HelloController
@@ -68,6 +72,8 @@ public class HelloController
     @FXML
     private Slider volumeSlider;
 
+    @FXML
+    private ImageView songImageView;
 
 
     // Initialize method to load all songs (you already have this method)
@@ -215,6 +221,8 @@ public class HelloController
             playingSong = songsOList.get(indexOfNextSong);
             playSongFromListClick(playingSong.getSongID());
         }
+
+        changeImage();
     }
 
     @FXML
@@ -229,6 +237,8 @@ public class HelloController
             }
             playSongFromListClick(playingSong.getSongID());
         }
+
+        changeImage();
     }
 
     @FXML
@@ -571,4 +581,18 @@ public class HelloController
         addSongStage.setScene(scene2);
         addSongStage.show();
     }
+
+    public void changeImage() {
+        File directory = new File("src/main/resources/images");
+        File[] files = directory.listFiles();
+
+        if (files != null) {
+            Random rand = new Random();
+            File randomFile = files[rand.nextInt(files.length)];
+
+            Image image = new Image(randomFile.toURI().toString());
+            songImageView.setImage(image);
+        }
+    }
+
 }
