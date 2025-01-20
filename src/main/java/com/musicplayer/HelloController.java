@@ -11,6 +11,10 @@ import javafx.beans.Observable;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
@@ -25,6 +29,7 @@ import javafx.util.Duration;
 import javafx.util.StringConverter;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 public class HelloController
@@ -413,6 +418,57 @@ public class HelloController
                     });
                     if (playlist.getPlaylistID() != 0)
                     {
+
+                        Button editButton = new Button("Edit");
+                        editButton.setOnMousePressed(new EventHandler<MouseEvent>()
+                        {
+                            @Override
+                            public void handle(MouseEvent mouseEvent)
+                            {
+                                try
+                                {
+                                    FXMLLoader loader = new FXMLLoader(getClass().getResource("edit-playlist.fxml"));
+                                    Parent root = loader.load();
+
+                                    EditPlaylistController controller = loader.getController();
+                                    controller.editPlaylistID(playlist.getPlaylistID());
+
+                                    Stage stage = (Stage)((Node)mouseEvent.getSource()).getScene().getWindow();
+                                    Scene scene = new Scene(root);
+                                    stage.setScene(scene);
+                                    stage.show();
+                                }
+                                catch (Exception e)
+                                {
+                                    throw new RuntimeException(e);
+                                }
+                                /*
+
+
+                                Stage stage = new Stage();
+                                FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("edit-playlist.fxml"));
+
+                                try
+                                {
+                                    scene = new Scene(fxmlLoader.load(), 1000, 580);
+                                    EditPlaylistController controller = fxmlLoader.getController();
+                                    controller.editPlaylistID(playlist.getPlaylistID());
+                                }
+                                catch (IOException e)
+                                {
+                                    throw new RuntimeException(e);
+                                }
+                                stage.setResizable(false);
+
+                                stage.setTitle("Edit Playlist");
+                                stage.setScene(scene);
+                                stage.show();
+                                */
+                            }
+                        });
+
+                        grid.add(editButton, 3, 0);
+
                         Button deleteButton = new Button("X");
                         deleteButton.setOnMousePressed(new EventHandler<MouseEvent>()
                         {

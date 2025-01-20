@@ -181,4 +181,33 @@ public class PlaylistDAOImpl implements PlaylistDAO
         playlist.setPlaylistName(rs.getString("playlistName"));
         return playlist;
     }
+
+    @Override
+    public void deleteSongFromPlaylist(int songID, int playlistID)
+    {
+        Connection con = null;
+
+        try
+        {
+            String sql = "DELETE FROM songsPlaylist WHERE songID = ? AND playlistID = ?";
+            con = SqlConnection.getConnection();
+
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, songID);
+            ps.setInt(2, playlistID);
+            int affectedRows = ps.executeUpdate();
+            if (affectedRows > 0)
+            {
+                System.out.println("Song removed from playlist");
+            }
+            else
+            {
+                System.out.println("Failed to remove song from playlist");
+            }
+        }
+        catch (Exception e)
+        {
+            System.out.println("Failed to remove song from playlist with exception");
+        }
+    }
 }
