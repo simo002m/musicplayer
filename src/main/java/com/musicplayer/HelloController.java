@@ -446,28 +446,6 @@ public class HelloController
                                 {
                                     throw new RuntimeException(e);
                                 }
-                                /*
-
-
-                                Stage stage = new Stage();
-                                FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("edit-playlist.fxml"));
-
-                                try
-                                {
-                                    scene = new Scene(fxmlLoader.load(), 1000, 580);
-                                    EditPlaylistController controller = fxmlLoader.getController();
-                                    controller.editPlaylistID(playlist.getPlaylistID());
-                                }
-                                catch (IOException e)
-                                {
-                                    throw new RuntimeException(e);
-                                }
-                                stage.setResizable(false);
-
-                                stage.setTitle("Edit Playlist");
-                                stage.setScene(scene);
-                                stage.show();
-                                */
                             }
                         });
 
@@ -529,6 +507,7 @@ public class HelloController
 
                     grid.getColumnConstraints().add(new ColumnConstraints(30));
                     grid.getColumnConstraints().add(new ColumnConstraints(60));
+                    grid.getColumnConstraints().add(new ColumnConstraints(40));
                     setGraphic(grid);
                 }
             }

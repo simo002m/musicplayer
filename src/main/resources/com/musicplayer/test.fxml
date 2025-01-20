@@ -1,76 +1,91 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="600.0" prefWidth="833.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.musicplayer.HelloController">
-   <!-- Top bar with search field -->
-   <HBox layoutX="20.0" layoutY="29.0" prefHeight="40.0" prefWidth="760.0" spacing="10">
-      <Button onAction="#searchClick" text="Søg:" />
-      <TextField id="SearchID" fx:id="searchField" promptText="Søg efter sang eller kunstner" />
-   </HBox>
+<VBox prefHeight="600.0" prefWidth="833.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.musicplayer.HelloController">
+    <!-- Top bar with search field -->
+    <HBox alignment="TOP_LEFT" prefHeight="94.0" prefWidth="834.0" spacing="10">
+        <Button onAction="#searchClick" text="Søg:">
+         <HBox.margin>
+            <Insets left="30.0" top="20.0" />
+         </HBox.margin></Button>
+        <TextField fx:id="searchField" alignment="CENTER" prefWidth="300.0" promptText="Søg efter sang eller kunstner">
+         <HBox.margin>
+            <Insets top="20.0" />
+         </HBox.margin></TextField>
+    </HBox>
 
-   <!-- Now Playing section -->
-   <VBox layoutX="20" layoutY="400" spacing="10" />
+    <!-- Main content: Playlist and Headers -->
+    <HBox prefHeight="382.0" prefWidth="870.0" spacing="10" VBox.vgrow="ALWAYS">
+        <!-- Playlist Section -->
+        <VBox prefWidth="200.0" spacing="5">
+            <Label alignment="CENTER" prefHeight="61.0" prefWidth="194.0" style="-fx-background-color: #D2B48C;" text="Playlist" />
+            <ScrollPane fitToWidth="true" prefHeight="323.0" prefWidth="200.0">
+                <ListView fx:id="playlistListView" />
+            </ScrollPane>
+            <HBox spacing="5">
+                <TextField fx:id="playlistNameTextField" promptText="Playlist" HBox.hgrow="ALWAYS" />
+                <Button onAction="#addPlaylistClick" text="Add" />
+            </HBox>
+        </VBox>
 
-   <!-- Control buttons -->
-   <HBox layoutX="20" layoutY="500" spacing="20" />
+        <!-- Headers and Songs List Section -->
+        <VBox prefHeight="357.0" prefWidth="624.0" spacing="10">
+            <!-- Headers -->
+            <HBox alignment="CENTER_LEFT" spacing="5" style="-fx-background-color: #D2B48C;">
+                <VBox>
+                    <!-- Add Song Button -->
+                    <Button alignment="CENTER" onAction="#openAddSongStage" prefWidth="120.0" style="-fx-background-color: #D2B48C;" text="Add song" />
+                    <Label alignment="CENTER" prefWidth="300.0" text="Sang:" />
+                </VBox>
+                <Label prefWidth="190.0" text="Kunstner:" />
+                <Label prefWidth="140.0" text="Varighed:" />
+            </HBox>
+            <!-- Songs List -->
+            <ListView fx:id="songsListView" prefHeight="330.0" prefWidth="635.0" />
+        </VBox>
+    </HBox>
 
-   <!-- Volume slider -->
-   <VBox layoutX="680" layoutY="500" spacing="10">
-      <Label text="Lydstyrke" />
-   </VBox>
-   <VBox layoutX="39.0" layoutY="110.0" prefHeight="300.0" prefWidth="150.0">
-       <Label prefWidth="149.59998931884766" style="-fx-background-color: #D2B48C;" text="Playlist" />
-       <ScrollPane prefHeight="257.0" prefWidth="166.0">
-           <ListView fx:id="playlistListView" />
-       </ScrollPane>
-       <HBox>
-           <TextField fx:id="playlistNameTextField" promptText="Playlist" />
-           <Button minWidth="-Infinity" onAction="#addPlaylistClick" text="Add" />
-       </HBox>
-   </VBox>
-   <Slider id="SpillelinjeID" fx:id="timeSlider" layoutX="205.0" layoutY="525.0" prefHeight="14.0" prefWidth="390.0" />
-   <Slider id="LydstyrkeID" fx:id="volumeSlider" layoutX="662.0" layoutY="518.0" prefHeight="14.0" prefWidth="111.0" />
-   <Button id="NæsteID" layoutX="475.0" layoutY="487.0" onAction="#handleNextButtonAction" style="-fx-background-color: #C0C0C0;" text="⏭ Næste" />
-    <Button id="StopID" layoutX="340.0" layoutY="487.0" onAction="#handleStopButtonAction" style="-fx-background-color: #C0C0C0;" text="◼" />
-   <Button id="PauseID" layoutX="375.0" layoutY="487.0" onAction="#handlePlayPauseButtonAction" style="-fx-background-color: #C0C0C0;" text="⏯ Afspil/Pause" />
-   <Button id="ForrigeID" layoutX="265.0" layoutY="487.0" onAction="#handlePreviousButtonAction" style="-fx-background-color: #C0C0C0;" text="⏮ Forrige" />
-   <Label id="afspillersangID" fx:id="currentSongLabel" layoutX="20.0" layoutY="523.0" style="-fx-background-color: #C0C0C0;" text="Sang: [Ingen sang valgt]" />
-   <Label id="SpillernuID" layoutX="20.0" layoutY="491.0" style="-fx-background-color: #C0C0C0;" text="Spiller nu:" />
- <AnchorPane layoutX="240.0" layoutY="131.0" minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
-      <children>
-         <SplitPane layoutX="-54.0" layoutY="-21.0" orientation="VERTICAL" prefHeight="300.0" prefWidth="624.0">
-           <items>
-             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
-                  <children>
+    <!-- Now Playing Section -->
+    <VBox alignment="CENTER_LEFT" prefHeight="53.0" prefWidth="834.0" spacing="10">
+        <Label style="-fx-background-color: #C0C0C0;" text="Spiller nu:">
+         <VBox.margin>
+            <Insets top="20.0" />
+         </VBox.margin></Label>
+        <Label fx:id="currentSongLabel" style="-fx-background-color: #C0C0C0;" text="Sang: [Ingen sang valgt]" />
+      <VBox.margin>
+         <Insets />
+      </VBox.margin>
+    </VBox>
 
-                                 <!-- Playlist table -->
-                      <TableView fx:id="playlistTable" layoutX="-4.0" layoutY="-1.0" prefHeight="72.0" prefWidth="632.0">
-                        <columns>
-                           <TableColumn prefWidth="303.0000305175781">
-                              <columns>
-                                 <TableColumn id="SangID" prefWidth="300.0" style="-fx-background-color: #D2B48C;" text="Sang:" />
-                              </columns>
-                              <graphic>
-                                  <Button mnemonicParsing="false" onAction="#openAddSongStage" prefHeight="38.0" prefWidth="335.0" style="-fx-background-color: #D2B48C;" text="Add song" />
-                              </graphic>
-                           </TableColumn>
-                           <TableColumn id="KunstnerID" prefWidth="190.60000610351562" style="-fx-background-color: #D2B48C;" text="Kunstner:" />
-                           <TableColumn id="VarighedID" prefWidth="140.79997558593755" style="-fx-background-color: #D2B48C;" text="Varighed:" />
-                        </columns>
-                     </TableView>
-                     <ListView fx:id="songsListView" layoutY="71.0" prefWidth="632" />
-                  </children>
-               </AnchorPane>
-           </items>
-         </SplitPane>
-      </children>
-   </AnchorPane>
-
-   <style>
-      #addSong:hover {
-         -fx-background-color: red;
-      }
-   </style>
-</AnchorPane>
+    <!-- Controls and Sliders -->
+    <VBox spacing="10">
+        <HBox alignment="CENTER" spacing="10">
+            <Button id="ForrigeID" onAction="#handlePreviousButtonAction" style="-fx-background-color: #C0C0C0;" text="⏮ Forrige" />
+            <Button id="PauseID" onAction="#handlePlayPauseButtonAction" style="-fx-background-color: #C0C0C0;" text="⏯ Afspil/Pause" />
+            <Button id="StopID" onAction="#handleStopButtonAction" style="-fx-background-color: #C0C0C0;" text="◼" />
+            <Button id="NæsteID" onAction="#handleNextButtonAction" style="-fx-background-color: #C0C0C0;" text="⏭ Næste">
+            <HBox.margin>
+               <Insets right="60.0" />
+            </HBox.margin></Button>
+             <Label alignment="CENTER_RIGHT" text="Lydstyrke">
+            <HBox.margin>
+               <Insets left="25.0" top="25.0" />
+            </HBox.margin></Label>
+        </HBox>
+        <HBox alignment="CENTER" prefHeight="81.0" prefWidth="834.0" spacing="20">
+            <Slider fx:id="timeSlider" prefWidth="400.0">
+            <HBox.margin>
+               <Insets top="-50.0" />
+            </HBox.margin></Slider>
+            <VBox alignment="CENTER" prefHeight="38.0" prefWidth="109.0" spacing="5">
+                <Slider fx:id="volumeSlider" prefWidth="100.0">
+               <VBox.margin>
+                  <Insets top="-50.0" />
+               </VBox.margin></Slider>
+            </VBox>
+        </HBox>
+    </VBox>
+</VBox>
