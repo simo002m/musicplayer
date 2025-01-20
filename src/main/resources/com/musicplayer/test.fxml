@@ -5,7 +5,7 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox prefHeight="600.0" prefWidth="833.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.musicplayer.HelloController">
+<VBox prefHeight="580" prefWidth="1150" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.musicplayer.HelloController">
     <!-- Top bar with search field -->
     <HBox alignment="TOP_LEFT" prefHeight="94.0" prefWidth="896.0" spacing="10">
         <Button onAction="#searchClick" text="Søg:">
@@ -47,26 +47,15 @@
             <!-- Songs List -->
             <ListView fx:id="songsListView" prefHeight="330.0" prefWidth="635.0" />
         </VBox>
-      <GridPane>
-         <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
-         </columnConstraints>
-         <rowConstraints>
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-         </rowConstraints>
+      <Pane prefHeight="300.0" prefWidth="300.0" style="-fx-background-color: #C0C0C0;">
          <children>
-            <ImageView fx:id="songImageView" fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1">
-               <image>
-                  <Image url="@../../images/pear.jpeg" />
-               </image>
-               <GridPane.margin>
-                  <Insets />
-               </GridPane.margin>
+            <ImageView fx:id="songImageView" fitHeight="300.0" fitWidth="300.0" layoutY="25.0" pickOnBounds="true" preserveRatio="false">
+               <viewport>
+                  <Rectangle2D />
+               </viewport>
             </ImageView>
          </children>
-      </GridPane>
+      </Pane>
     </HBox>
 
     <!-- Now Playing Section -->

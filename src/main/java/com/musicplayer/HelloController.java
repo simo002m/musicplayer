@@ -79,6 +79,8 @@ public class HelloController
     // Initialize method to load all songs (you already have this method)
     public void initialize()
     {
+        changeImage();
+
         // initialisere nogle elementer
         currentSongLabel.setText("Sang: [Ingen sang valgt]");
 
@@ -317,6 +319,7 @@ public class HelloController
                         public void handle(MouseEvent mouseEvent)
                         {
                             playSongFromListClick(song.getSongID());
+                            changeImage();
                         }
                     }));
 
