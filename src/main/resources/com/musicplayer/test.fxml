@@ -22,7 +22,7 @@
    </VBox>
    <VBox layoutX="39.0" layoutY="110.0" prefHeight="300.0" prefWidth="150.0">
        <Label prefWidth="149.59998931884766" style="-fx-background-color: #D2B48C;" text="Playlist" />
-       <ScrollPane>
+       <ScrollPane prefHeight="257.0" prefWidth="166.0">
            <ListView fx:id="playlistListView" />
        </ScrollPane>
        <HBox>
