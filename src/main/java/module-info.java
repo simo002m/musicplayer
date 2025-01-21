@@ -16,6 +16,4 @@ module com.musicplayer {
 
     opens com.musicplayer to javafx.fxml;
     exports com.musicplayer;
-    exports com.musicplayer.controllers;
-    opens com.musicplayer.controllers to javafx.fxml;
 }

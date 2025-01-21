@@ -1,4 +1,4 @@
-package com.musicplayer.controllers;
+package com.musicplayer;
 
 import Models.Song;
 import Services.SongDAO;

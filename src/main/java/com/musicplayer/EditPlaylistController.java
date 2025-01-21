@@ -1,4 +1,4 @@
-package com.musicplayer.controllers;
+package com.musicplayer;
 
 import Models.Playlist;
 import Models.Song;

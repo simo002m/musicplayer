@@ -1,11 +1,10 @@
-package com.musicplayer.controllers;
+package com.musicplayer;
 
 import Models.*;
 import Services.PlaylistDAO;
 import Services.PlaylistDAOImpl;
 import Services.SongDAO;
 import Services.SongDAOImpl;
-import com.musicplayer.Main;
 import javafx.application.Platform;
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;

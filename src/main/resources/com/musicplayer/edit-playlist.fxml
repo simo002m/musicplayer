@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.musicplayer.controllers.EditPlaylistController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.musicplayer.EditPlaylistController">
 
     <!-- Container for centering all components -->
     <VBox alignment="CENTER" layoutY="3.0" prefHeight="100" prefWidth="600.0" spacing="20.0">
@@ -18,8 +19,36 @@
     </VBox>
 
     <ListView fx:id="songsListView" layoutY="153.0" prefHeight="371.0" prefWidth="600.0" />
-    <Label layoutX="457.0" layoutY="122.0" prefHeight="18.0" prefWidth="74.0" style="-fx-background-color: #D2B48C;" text="Varighed" />
-    <Label layoutX="255.0" layoutY="122.0" prefHeight="18.0" prefWidth="64.0" style="-fx-background-color: #D2B48C;" text="Kunstner" />
-
-    <Label layoutX="39.0" layoutY="122.0" prefHeight="18.0" prefWidth="74.0" style="-fx-background-color: #D2B48C;" text="Sang" />
+   <HBox layoutY="105.0" prefHeight="46.0" prefWidth="600.0" style="-fx-background-color: D2B48C;">
+      <children>
+      
+          <Label prefHeight="18.0" prefWidth="74.0" style="-fx-background-color: #D2B48C;" text="Sang">
+            <padding>
+               <Insets bottom="10.0" top="10.0" />
+            </padding>
+            <HBox.margin>
+               <Insets left="10.0" />
+            </HBox.margin>
+         </Label>
+          <Label prefHeight="18.0" prefWidth="64.0" style="-fx-background-color: #D2B48C;" text="Kunstner">
+            <padding>
+               <Insets bottom="10.0" left="-20.0" top="10.0" />
+            </padding>
+            <HBox.margin>
+               <Insets left="150.0" />
+            </HBox.margin>
+         </Label>
+          <Label prefHeight="18.0" prefWidth="74.0" style="-fx-background-color: #D2B48C;" text="Varighed">
+            <padding>
+               <Insets bottom="10.0" top="10.0" />
+            </padding>
+            <HBox.margin>
+               <Insets left="160.0" />
+            </HBox.margin>
+         </Label>
+      </children>
+      <padding>
+         <Insets bottom="5.0" top="5.0" />
+      </padding>
+   </HBox>
 </AnchorPane>
