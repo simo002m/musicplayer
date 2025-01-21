@@ -1,10 +1,11 @@
-package com.musicplayer;
+package com.musicplayer.controllers;
 
 import Models.*;
 import Services.PlaylistDAO;
 import Services.PlaylistDAOImpl;
 import Services.SongDAO;
 import Services.SongDAOImpl;
+import com.musicplayer.Main;
 import javafx.application.Platform;
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
@@ -13,9 +14,6 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -29,17 +27,14 @@ import javafx.stage.Stage;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.util.Duration;
-import javafx.util.StringConverter;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.List;
-import java.io.IOException;
 import java.util.Random;
 
 
-public class HelloController
+public class MainController
 {
     SongDAO songdao = new SongDAOImpl();
     PlaylistDAO playlistdao = new PlaylistDAOImpl();
@@ -577,7 +572,7 @@ public class HelloController
     public void openAddSongStage() throws IOException
     {
         Stage addSongStage = new Stage();
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("add-song.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("add-song.fxml"));
         Scene scene2 = new Scene(fxmlLoader.load(), 500, 500);
         addSongStage.setTitle("Tilføj Sang");
         addSongStage.setResizable(false);

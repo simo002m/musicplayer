@@ -1,4 +1,4 @@
-package com.musicplayer;
+package com.musicplayer.controllers;
 
 import Models.Playlist;
 import Models.Song;
@@ -6,7 +6,6 @@ import Services.PlaylistDAO;
 import Services.PlaylistDAOImpl;
 import Services.SongDAO;
 import Services.SongDAOImpl;
-import com.almasb.fxgl.core.util.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -18,7 +17,6 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
@@ -61,7 +59,7 @@ public class EditPlaylistController
     @FXML
     private void backToPlaylist(Event event) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("test.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("main.fxml"));
             Parent root = loader.load();
 
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();

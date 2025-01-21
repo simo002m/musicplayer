@@ -5,7 +5,7 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox prefHeight="580" prefWidth="1150" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.musicplayer.HelloController">
+<VBox prefHeight="580" prefWidth="1150" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.musicplayer.controllers.MainController">
     <!-- Top bar with search field -->
     <HBox alignment="TOP_LEFT" prefHeight="94.0" prefWidth="896.0" spacing="10">
         <Button onAction="#searchClick" text="Søg:">

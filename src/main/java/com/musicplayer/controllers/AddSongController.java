@@ -1,4 +1,4 @@
-package com.musicplayer;
+package com.musicplayer.controllers;
 
 import Models.Song;
 import Services.SongDAO;
@@ -11,7 +11,6 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 
 import java.io.File;
 import java.nio.file.Files;
