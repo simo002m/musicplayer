@@ -87,7 +87,7 @@ public class AddSongController
         }
         catch (Exception e)
         {
-            throw new RuntimeException(e);
+            System.out.println(e.getMessage());
         }
     }
 
@@ -145,7 +145,7 @@ public class AddSongController
         }
         catch (Exception e)
         {
-            throw new RuntimeException(e);
+            System.out.println(e.getMessage());
         }
     }
 }
