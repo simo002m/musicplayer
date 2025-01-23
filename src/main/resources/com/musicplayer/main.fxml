@@ -78,10 +78,9 @@
             </HBox>
             <!-- Songs List -->
             <ListView fx:id="songsListView" prefHeight="330.0" prefWidth="635.0" />
-        </VBox>
-        <Pane prefHeight="300.0" prefWidth="300.0" style="-fx-background-color: #D2B48C;">
+        </VBox><Pane prefHeight="300.0" prefWidth="300.0" style="-fx-background-color: #D2B48C;">
             <children>
-                <ImageView fx:id="songImageView" fitHeight="300.0" fitWidth="300.0" layoutY="26.0" pickOnBounds="true" preserveRatio="false">
+                <ImageView fx:id="songImageView" fitHeight="300.0" fitWidth="300.0" layoutY="27.0" pickOnBounds="true" preserveRatio="false">
                     <viewport>
                         <Rectangle2D />
                     </viewport>
