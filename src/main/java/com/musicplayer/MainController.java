@@ -64,6 +64,9 @@ public class MainController
     private Label currentSongLabel;
 
     @FXML
+    private Label currentArtistLabel;
+
+    @FXML
     private Slider volumeSlider;
 
     @FXML
@@ -74,9 +77,6 @@ public class MainController
     public void initialize()
     {
         changeImage();
-
-        // initialisere nogle elementer
-        currentSongLabel.setText("Sang: [Ingen sang valgt]");
 
         try
         {
@@ -115,7 +115,9 @@ public class MainController
                     mediaPlayer.stop();
                 }
 
-                currentSongLabel.setText("Sang: " + playingSong.getSongName());
+                currentSongLabel.setText(playingSong.getSongName());
+                currentArtistLabel.setText(playingSong.getArtistName());
+
                 Media media = new Media(getClass().getResource("/media/" + playingSong.getFilePath()).toURI().toString());
                 mediaPlayer = new MediaPlayer(media);
 

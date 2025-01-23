@@ -75,7 +75,7 @@
         </VBox>
       <Pane prefHeight="300.0" prefWidth="300.0" style="-fx-background-color: #D2B48C;">
          <children>
-            <ImageView fx:id="songImageView" fitHeight="300.0" fitWidth="300.0" layoutY="25.0" pickOnBounds="true" preserveRatio="false">
+            <ImageView fx:id="songImageView" fitHeight="300.0" fitWidth="300.0" layoutY="26.0" pickOnBounds="true" preserveRatio="false">
                <viewport>
                   <Rectangle2D />
                </viewport>
@@ -85,15 +85,29 @@
     </HBox>
 
     <!-- Now Playing Section -->
-    <VBox alignment="CENTER_LEFT" prefHeight="53.0" prefWidth="834.0" spacing="10">
-        <Label style="-fx-background-color: #C0C0C0;" text="Spiller nu:">
+    <VBox alignment="CENTER_LEFT" prefHeight="77.0" prefWidth="1150.0" spacing="10">
+        <Label fx:id="currentSongLabel" alignment="CENTER" prefHeight="36.0" prefWidth="1092.0">
+         <font>
+            <Font name="System Bold" size="30.0" />
+         </font>
          <VBox.margin>
-            <Insets top="20.0" />
-         </VBox.margin></Label>
-        <Label fx:id="currentSongLabel" style="-fx-background-color: #C0C0C0;" text="Sang: [Ingen sang valgt]" />
-      <VBox.margin>
-         <Insets />
-      </VBox.margin>
+            <Insets />
+         </VBox.margin>
+         <padding>
+            <Insets top="5.0" />
+         </padding>
+      </Label>
+      <Label fx:id="currentArtistLabel" alignment="CENTER" layoutX="10.0" layoutY="18.0" prefHeight="14.0" prefWidth="1092.0">
+         <font>
+            <Font size="18.0" />
+         </font>
+         <VBox.margin>
+            <Insets top="-15.0" />
+         </VBox.margin>
+         <padding>
+            <Insets bottom="10.0" />
+         </padding>
+      </Label>
     </VBox>
 
     <!-- Controls and Sliders -->
@@ -118,11 +132,14 @@
             <font>
                <Font size="16.0" />
             </font></Button>
+         <padding>
+            <Insets bottom="30.0" />
+         </padding>
         </HBox>
-        <HBox alignment="CENTER" prefHeight="81.0" prefWidth="834.0" spacing="20">
+        <HBox alignment="CENTER" prefHeight="2.0" prefWidth="1150.0" spacing="20.0">
             <Slider fx:id="timeSlider" prefWidth="400.0">
             <HBox.margin>
-               <Insets top="-50.0" />
+               <Insets left="5.0" top="-50.0" />
             </HBox.margin></Slider>
              <Slider fx:id="volumeSlider" prefWidth="100.0">
             <HBox.margin>
@@ -131,11 +148,14 @@
          </Slider>
          <Label text="🔊">
             <padding>
-               <Insets left="-15.0" top="-52.0" />
+               <Insets left="-15.0" />
             </padding>
             <font>
                <Font size="20.0" />
             </font>
+            <HBox.margin>
+               <Insets right="10.0" top="-50.0" />
+            </HBox.margin>
          </Label>
         </HBox>
     </VBox>
