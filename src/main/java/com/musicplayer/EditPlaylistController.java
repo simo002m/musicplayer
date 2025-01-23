@@ -57,8 +57,10 @@ public class EditPlaylistController
     }
 
     @FXML
-    private void backToPlaylist(Event event) {
-        try {
+    private void backToPlaylist(Event event)
+    {
+        try
+        {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("main.fxml"));
             Parent root = loader.load();
 
@@ -66,18 +68,17 @@ public class EditPlaylistController
             Scene scene = new Scene(root);
             stage.setScene(scene);
             stage.show();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+        } catch (Exception e)
+        {
+            System.out.println(e.getMessage());
         }
     }
 
     @FXML
     private void handleSaveButtonAction()
     {
-
         try
         {
-
             String newName = name.getText();
             if (newName == null || newName.isEmpty())
             {
@@ -92,7 +93,7 @@ public class EditPlaylistController
         }
         catch (Exception e)
         {
-            throw new RuntimeException(e.getMessage());
+            System.out.println(e.getMessage());
         }
     }
 
@@ -142,9 +143,6 @@ public class EditPlaylistController
                     grid.add(artistNameLabel, 1, 0);
                     grid.add(songDurationLabel, 2, 0);
                     grid.add(deleteSong, 3, 0);
-
-
-
 
                     grid.getColumnConstraints().add(new ColumnConstraints(210));
                     grid.getColumnConstraints().add(new ColumnConstraints(230));

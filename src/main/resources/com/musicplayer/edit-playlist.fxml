@@ -17,38 +17,36 @@
             <Button mnemonicParsing="false" onAction="#handleSaveButtonAction" text="Gem" />
         </HBox>
     </VBox>
-
     <ListView fx:id="songsListView" layoutY="153.0" prefHeight="371.0" prefWidth="600.0" />
-   <HBox layoutY="105.0" prefHeight="46.0" prefWidth="600.0" style="-fx-background-color: D2B48C;">
-      <children>
-      
-          <Label prefHeight="18.0" prefWidth="74.0" style="-fx-background-color: #D2B48C;" text="Sang">
-            <padding>
-               <Insets bottom="10.0" top="10.0" />
-            </padding>
-            <HBox.margin>
-               <Insets left="10.0" />
-            </HBox.margin>
-         </Label>
-          <Label prefHeight="18.0" prefWidth="64.0" style="-fx-background-color: #D2B48C;" text="Kunstner">
-            <padding>
-               <Insets bottom="10.0" left="-20.0" top="10.0" />
-            </padding>
-            <HBox.margin>
-               <Insets left="150.0" />
-            </HBox.margin>
-         </Label>
-          <Label prefHeight="18.0" prefWidth="74.0" style="-fx-background-color: #D2B48C;" text="Varighed">
-            <padding>
-               <Insets bottom="10.0" top="10.0" />
-            </padding>
-            <HBox.margin>
-               <Insets left="160.0" />
-            </HBox.margin>
-         </Label>
-      </children>
-      <padding>
-         <Insets bottom="5.0" top="5.0" />
-      </padding>
-   </HBox>
+    <HBox layoutY="105.0" prefHeight="46.0" prefWidth="600.0" style="-fx-background-color: D2B48C;">
+        <children>
+            <Label prefHeight="18.0" prefWidth="74.0" style="-fx-background-color: #D2B48C;" text="Sang">
+                <padding>
+                    <Insets bottom="10.0" top="10.0" />
+                </padding>
+                <HBox.margin>
+                    <Insets left="10.0" />
+                </HBox.margin>
+            </Label>
+            <Label prefHeight="18.0" prefWidth="64.0" style="-fx-background-color: #D2B48C;" text="Kunstner">
+                <padding>
+                    <Insets bottom="10.0" left="-20.0" top="10.0" />
+                </padding>
+                <HBox.margin>
+                    <Insets left="150.0" />
+                </HBox.margin>
+            </Label>
+            <Label prefHeight="18.0" prefWidth="74.0" style="-fx-background-color: #D2B48C;" text="Varighed">
+                <padding>
+                    <Insets bottom="10.0" top="10.0" />
+                </padding>
+                <HBox.margin>
+                    <Insets left="160.0" />
+                </HBox.margin>
+            </Label>
+        </children>
+        <padding>
+            <Insets bottom="5.0" top="5.0" />
+        </padding>
+    </HBox>
 </AnchorPane>

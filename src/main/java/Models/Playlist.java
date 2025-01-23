@@ -43,9 +43,7 @@ public class Playlist
         this.playlistName = playlistName;
     }
 
-    public Playlist()
-    {
-    }
+    public Playlist() {}
 
     @Override
     public String toString()

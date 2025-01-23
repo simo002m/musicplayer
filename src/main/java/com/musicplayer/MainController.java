@@ -141,10 +141,15 @@ public class MainController
                     }
                 });
 
-                HBox.setHgrow(timeSlider, Priority.ALWAYS);
-                timeSlider.setMinWidth(50);
-                timeSlider.setMaxWidth(Double.MAX_VALUE);
-                duration = media.getDuration();
+                //will start next song when the current song is finished
+                mediaPlayer.setOnEndOfMedia(new Runnable()
+                {
+                    @Override
+                    public void run()
+                    {
+                        handleNextButtonAction();
+                    }
+                });
 
                 //adds listener on time slider
                 timeSlider.valueProperty().addListener(new InvalidationListener()
@@ -158,11 +163,6 @@ public class MainController
                         }
                     }
                 });
-
-
-                volumeSlider.setPrefWidth(70);
-                volumeSlider.setMaxWidth(Region.USE_PREF_SIZE);
-                volumeSlider.setMinWidth(30);
 
                 //adds listener on volume slider
                 volumeSlider.valueProperty().addListener(new InvalidationListener()
@@ -182,7 +182,7 @@ public class MainController
         }
         catch (Exception e)
         {
-            throw new RuntimeException(e);
+            System.out.println(e.getMessage());
         }
     }
 
@@ -242,7 +242,10 @@ public class MainController
     @FXML
     private void handleStopButtonAction()
     {
-        mediaPlayer.stop();
+        if (mediaPlayer != null)
+        {
+            mediaPlayer.stop();
+        }
     }
 
     @FXML
@@ -275,8 +278,7 @@ public class MainController
                     Duration currentTime = mediaPlayer.getCurrentTime();
                     timeSlider.setDisable(duration.isUnknown());
 
-                    if (!timeSlider.isDisable()
-                    && duration.greaterThan(Duration.ZERO)
+                    if (!timeSlider.isDisable() && duration.greaterThan(Duration.ZERO)
                     && !timeSlider.isValueChanging())
                     {
                         timeSlider.setValue(currentTime.divide(duration).toMillis() * 100.0);
@@ -453,7 +455,7 @@ public class MainController
                                 }
                                 catch (Exception e)
                                 {
-                                    throw new RuntimeException(e);
+                                    System.out.println(e.getMessage());
                                 }
                             }
                         });
@@ -581,11 +583,13 @@ public class MainController
         addSongStage.show();
     }
 
-    public void changeImage() {
+    public void changeImage()
+    {
         File directory = new File("src/main/resources/images");
         File[] files = directory.listFiles();
 
-        if (files != null) {
+        if (files != null)
+        {
             Random rand = new Random();
             File randomFile = files[rand.nextInt(files.length)];
 
@@ -593,5 +597,4 @@ public class MainController
             songImageView.setImage(image);
         }
     }
-
 }
